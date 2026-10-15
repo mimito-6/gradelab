@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GradeLab — Final Exam Grade Calculator: What Do I Need on My Final?</title>
+<meta name="description" content="Free final exam grade calculator. Enter your current grade, the final's weight, and your target — see exactly what score you need on the final. Supports letter grades and weighted multi-course averages. No sign-up, no tracking.">
+<link rel="canonical" href="https://grade.mimito6.uk/">
+<meta property="og:title" content="GradeLab — Final Exam Grade Calculator">
+<meta property="og:description" content="Find out exactly what score you need on your final exam to hit your target grade. Free, instant, no sign-up.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://grade.mimito6.uk/">
+<link rel="stylesheet" href="styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "GradeLab — Final Exam Grade Calculator",
+  "url": "https://grade.mimito6.uk/",
+  "applicationCategory": "EducationalApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free final exam grade calculator. Enter your current grade, the final exam's weight, and your target grade to see the exact score you need on the final."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What do I need on my final to get an A?",
+      "acceptedAnswer": { "@type": "Answer", "text": "It depends on your current grade and how much the final is worth. Use the formula: (Target − (1 − FinalWeight) × Current) ÷ FinalWeight. For example, with an 85% current grade and a final worth 40%, you need (90 − 0.6 × 85) ÷ 0.4 = 97.5% on the final to finish with a 90% (A). Enter your numbers in GradeLab's calculator above for an exact answer." }
+    },
+    {
+      "@type": "Question",
+      "name": "How is the required final exam score calculated?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The final course grade is a weighted average: FinalGrade = CurrentGrade × (1 − w) + FinalScore × w, where w is the final exam's weight as a decimal. Solving for the final score gives: Required = (Target − (1 − w) × Current) ÷ w." }
+    },
+    {
+      "@type": "Question",
+      "name": "What does it mean if the calculator says I need more than 100%?",
+      "acceptedAnswer": { "@type": "Answer", "text": "It means the target is mathematically out of reach through the final exam alone — even a perfect 100% would not be enough. In that case the honest options are to aim for the highest achievable grade or ask your instructor about extra credit." }
+    },
+    {
+      "@type": "Question",
+      "name": "What if I already have the grade I want before the final?",
+      "acceptedAnswer": { "@type": "Answer", "text": "If your current grade alone (weighted) already reaches your target, the required final score is zero or negative — meaning you are already safe. You cannot score below zero, so the calculator reports that you have locked in the grade." }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I calculate grades across multiple courses with different weights?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Multiply each course grade by its weight and add them up; the weights must sum to 1 (or 100%). GradeLab's multi-course mode does this for you and shows the required final score for each course toward a shared target." }
+    },
+    {
+      "@type": "Question",
+      "name": "What are the standard letter grade cutoffs?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The common US scale is A ≥ 90%, B ≥ 80%, C ≥ 70%, D ≥ 60%, and F below 60%. With plus/minus grading, A+ ≥ 97%, A ≥ 93%, and A− ≥ 90%. Grading scales vary by school and instructor, so always confirm your syllabus." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="brand"><span class="brand-mark">GL</span> GradeLab</div>
+  <p class="tagline">Final exam grade calculator</p>
+</header>
+
+<main>
+  <h1>What Do I Need on My Final? — Final Exam Grade Calculator</h1>
+  <p class="intro">Enter your current grade, how much the final is worth, and your target. GradeLab tells you the exact score you need on the final — instantly, free, with no sign-up and no tracking. Everything runs in your browser.</p>
+
+  <nav class="tabs" aria-label="Calculator modes">
+    <button class="tab active" data-tab="percent" aria-selected="true">Percentage</button>
+    <button class="tab" data-tab="letter" aria-selected="false">Letter grade</button>
+    <button class="tab" data-tab="multi" aria-selected="false">Multi-course</button>
+  </nav>
+
+  <!-- Percentage mode -->
+  <section id="tab-percent" class="panel active" aria-label="Percentage calculator">
+    <div class="field">
+      <label for="p-current">Current grade (%)</label>
+      <input id="p-current" type="number" min="0" max="100" step="0.1" placeholder="e.g. 85" inputmode="decimal">
+    </div>
+    <div class="field">
+      <label for="p-weight">Final exam weight (%)</label>
+      <input id="p-weight" type="number" min="0.1" max="100" step="0.1" placeholder="e.g. 40" inputmode="decimal">
+    </div>
+    <div class="field">
+      <label for="p-target">Target grade (%)</label>
+      <input id="p-target" type="number" min="0" max="100" step="0.1" placeholder="e.g. 90" inputmode="decimal">
+    </div>
+    <button class="calc-btn" data-mode="percent">Calculate</button>
+    <div class="result" id="result-percent" aria-live="polite"></div>
+  </section>
+
+  <!-- Letter grade mode -->
+  <section id="tab-letter" class="panel" aria-label="Letter grade calculator">
+    <div class="field">
+      <label for="l-current">Current grade (%)</label>
+      <input id="l-current" type="number" min="0" max="100" step="0.1" placeholder="e.g. 85" inputmode="decimal">
+    </div>
+    <div class="field">
+      <label for="l-weight">Final exam weight (%)</label>
+      <input id="l-weight" type="number" min="0.1" max="100" step="0.1" placeholder="e.g. 40" inputmode="decimal">
+    </div>
+    <div class="field">
+      <label for="l-target">Target letter grade</label>
+      <select id="l-target">
+        <option value="A">A (≥90%)</option>
+        <option value="B">B (≥80%)</option>
+        <option value="C">C (≥70%)</option>
+        <option value="D">D (≥60%)</option>
+      </select>
+    </div>
+    <div class="field checkbox-field">
+      <label><input type="checkbox" id="l-plusminus"> Use plus/minus scale (A+ ≥97, A ≥93, A− ≥90…)</label>
+    </div>
+    <button class="calc-btn" data-mode="letter">Calculate</button>
+    <div class="result" id="result-letter" aria-live="polite"></div>
+    <p class="note">Standard US cutoffs; your school's scale may differ — check your syllabus.</p>
+  </section>
+
+  <!-- Multi-course mode -->
+  <section id="tab-multi" class="panel" aria-label="Multi-course calculator">
+    <p class="hint">Add one row per course. Weights must add up to 100%.</p>
+    <div id="course-rows"></div>
+    <button class="ghost-btn" id="add-course">+ Add course</button>
+    <div class="field">
+      <label for="m-target">Target grade for each course (%)</label>
+      <input id="m-target" type="number" min="0" max="100" step="0.1" placeholder="e.g. 90" inputmode="decimal">
+    </div>
+    <div class="field">
+      <label for="m-weight">Final exam weight in each course (%)</label>
+      <input id="m-weight" type="number" min="0.1" max="100" step="0.1" placeholder="e.g. 40" inputmode="decimal">
+    </div>
+    <button class="calc-btn" data-mode="multi">Calculate</button>
+    <div class="result" id="result-multi" aria-live="polite"></div>
+  </section>
+
+  <section class="faq" aria-label="Frequently asked questions">
+    <h2>Frequently asked questions</h2>
+    <details open>
+      <summary>What do I need on my final to get an A?</summary>
+      <p>It depends on your current grade and the final's weight. The formula is: <strong>(Target − (1 − FinalWeight) × Current) ÷ FinalWeight</strong>. For example, with an 85% current grade and a final worth 40%, you need (90 − 0.6 × 85) ÷ 0.4 = <strong>97.5%</strong> on the final to finish at 90% (an A). Plug your numbers into the calculator above for an exact answer.</p>
+    </details>
+    <details>
+      <summary>How is the required final exam score calculated?</summary>
+      <p>Your final course grade is a weighted average: <strong>FinalGrade = CurrentGrade × (1 − w) + FinalScore × w</strong>, where <em>w</em> is the final exam's weight as a decimal (e.g. 40% → 0.4). Solving for the final score gives: <strong>Required = (Target − (1 − w) × Current) ÷ w</strong>.</p>
+    </details>
+    <details>
+      <summary>What does it mean if I need more than 100%?</summary>
+      <p>It means the target is mathematically out of reach through the final alone — even a perfect score wouldn't get you there. The honest move is to aim for the highest grade you <em>can</em> reach, or ask your instructor about extra credit.</p>
+    </details>
+    <details>
+      <summary>What if I already have the grade I want?</summary>
+      <p>If your current grade, weighted, already meets your target, the required final score is zero or negative. That means you're already safe — you've locked in the grade no matter what happens on the final (as long as the syllabus doesn't require a minimum final score).</p>
+    </details>
+    <details>
+      <summary>How do I average grades across multiple courses?</summary>
+      <p>Multiply each course grade by its weight and add them up; the weights must total 100%. The multi-course mode above does this for you and shows the required final score for each course toward a shared target.</p>
+    </details>
+    <details>
+      <summary>What are the standard letter grade cutoffs?</summary>
+      <p>The common US scale is A ≥ 90%, B ≥ 80%, C ≥ 70%, D ≥ 60%, F below 60%. With plus/minus grading: A+ ≥ 97%, A ≥ 93%, A− ≥ 90%. Grading scales vary by school and instructor, so always confirm your syllabus.</p>
+    </details>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>GradeLab — a free study tool. Math is done locally in your browser; nothing is sent anywhere.</p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
