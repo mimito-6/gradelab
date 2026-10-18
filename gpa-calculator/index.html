@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GPA Calculator — Semester & Cumulative GPA | GradeLab</title>
+<meta name="description" content="Free GPA calculator: enter your courses, letter grades (or percentages) and credit hours to get your semester GPA, plus a cumulative GPA calculator. Runs in your browser, no sign-up, no tracking.">
+<link rel="canonical" href="https://grade.mimito6.uk/gpa-calculator">
+<meta property="og:title" content="GradeLab — GPA Calculator">
+<meta property="og:description" content="Calculate your semester GPA and cumulative GPA in seconds. Free, instant, no sign-up.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://grade.mimito6.uk/gpa-calculator">
+<link rel="stylesheet" href="../styles.css">
+<style>
+.gpa-row { display: grid; grid-template-columns: 1fr 110px 90px 34px; gap: 8px; margin-bottom: 8px; align-items: center; }
+.gpa-row input, .gpa-row select { width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 15px; }
+.gpa-row .remove-row { background: none; border: none; font-size: 18px; cursor: pointer; color: #94a3b8; line-height: 1; }
+.gpa-row .remove-row:hover { color: #e11d48; }
+@media (max-width: 520px) { .gpa-row { grid-template-columns: 1fr 92px 76px 30px; } }
+.gpa-summary { background: #f1f5f9; border-radius: 12px; padding: 16px 20px; margin: 16px 0; }
+.gpa-summary .big { font-size: 34px; font-weight: 700; margin: 4px 0; }
+.gpa-summary .meta { color: #475569; font-size: 14px; }
+.seg { display: flex; gap: 8px; margin: 10px 0; flex-wrap: wrap; }
+.seg button { padding: 8px 14px; border: 1px solid #cbd5e1; border-radius: 999px; background: #fff; cursor: pointer; font-size: 14px; }
+.seg button.active { background: #1e293b; color: #fff; border-color: #1e293b; }
+.tools-nav { margin: 8px 0 0; font-size: 14px; }
+.tools-nav a { color: #475569; text-decoration: none; margin-right: 14px; }
+.tools-nav a:hover { text-decoration: underline; }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "GradeLab — GPA Calculator",
+  "url": "https://grade.mimito6.uk/gpa-calculator",
+  "applicationCategory": "EducationalApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free GPA calculator: enter courses, grades and credit hours to get your semester GPA and projected cumulative GPA."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is GPA calculated?",
+      "acceptedAnswer": { "@type": "Answer", "text": "GPA is a credit-weighted average: multiply each course's grade points by its credit hours, add them all up (quality points), then divide by total credit hours. Example: A (4.0) in a 4-credit course plus B (3.0) in a 3-credit course gives (16 + 9) / 7 = 3.57." }
+    },
+    {
+      "@type": "Question",
+      "name": "What are the standard 4.0 scale grade points?",
+      "acceptedAnswer": { "@type": "Answer", "text": "On the common US 4.0 scale with plus/minus: A/A+ = 4.0, A− = 3.67, B+ = 3.33, B = 3.0, B− = 2.67, C+ = 2.33, C = 2.0, C− = 1.67, D+ = 1.33, D = 1.0, D− = 0.67, F = 0. Grading scales vary by school, so always confirm your institution's scale." }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I calculate my cumulative GPA?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Cumulative GPA = (old quality points + new quality points) / (old credits + new credits). Your old quality points = current cumulative GPA × completed credit hours. GradeLab computes this for you: enter your current cumulative GPA and completed credits, then your new term's courses." }
+    },
+    {
+      "@type": "Question",
+      "name": "Do failed (F) courses count toward GPA?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. An F earns 0 grade points but its credit hours still count in the denominator, so a failed course pulls your GPA down. Some schools replace repeated-course grades — check your school's policy." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is this GPA calculator accurate?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The math is exact for the selected 4.0 scale. The uncertainty is never the arithmetic — it is which scale your school uses. Confirm your institution's grade-point table before relying on the number for scholarships or honors cutoffs." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="brand"><span class="brand-mark">GL</span> GradeLab</div>
+  <p class="tagline">Free grade tools for students</p>
+  <nav class="tools-nav" aria-label="GradeLab tools">
+    <a href="../">Final Exam Calculator</a>
+    <a href="./" aria-current="page">GPA Calculator</a>
+  </nav>
+</header>
+
+<main>
+  <h1>GPA Calculator — Semester &amp; Cumulative GPA</h1>
+  <p class="intro">Add your courses with grades and credit hours. GradeLab computes your semester GPA instantly — and, if you give it your current cumulative GPA, your new projected cumulative. Everything runs in your browser; nothing is uploaded or tracked.</p>
+
+  <section aria-label="GPA calculator">
+    <div class="field">
+      <label>Grading scale</label>
+      <div class="seg" role="group" aria-label="Grading scale">
+        <button type="button" class="active" data-scale="pm">4.0 with plus/minus</button>
+        <button type="button" data-scale="plain">4.0 straight letters</button>
+      </div>
+      <div class="seg" role="group" aria-label="Grade input format">
+        <button type="button" class="active" data-format="letter">Letter grades</button>
+        <button type="button" data-format="percent">Percentages</button>
+      </div>
+    </div>
+
+    <div id="gpa-rows" aria-live="polite"></div>
+    <button class="ghost-btn" id="add-gpa-row" type="button">+ Add course</button>
+
+    <div class="gpa-summary" id="term-summary">
+      <div class="meta">Semester GPA</div>
+      <div class="big" id="term-gpa">—</div>
+      <div class="meta" id="term-detail">Add at least one course with credits.</div>
+    </div>
+
+    <h2>Cumulative GPA</h2>
+    <p class="hint">Optional. Enter your standing before this term and we'll project your new cumulative GPA.</p>
+    <div class="gpa-row" style="grid-template-columns:1fr 1fr;">
+      <div class="field"><label for="cum-gpa">Current cumulative GPA</label><input id="cum-gpa" type="number" min="0" max="4" step="0.01" placeholder="e.g. 3.20" inputmode="decimal"></div>
+      <div class="field"><label for="cum-credits">Completed credit hours</label><input id="cum-credits" type="number" min="0" step="0.5" placeholder="e.g. 60" inputmode="decimal"></div>
+    </div>
+    <div class="gpa-summary" id="cum-summary">
+      <div class="meta">Projected cumulative GPA</div>
+      <div class="big" id="cum-result">—</div>
+      <div class="meta" id="cum-detail">Enter your current cumulative GPA and credits.</div>
+    </div>
+  </section>
+
+  <section class="faq" aria-label="Frequently asked questions">
+    <h2>Frequently asked questions</h2>
+    <details open>
+      <summary>How is GPA calculated?</summary>
+      <p>GPA is a <strong>credit-weighted average</strong>: each course's grade points are multiplied by its credit hours, summed into "quality points", then divided by total credit hours. Example: A (4.0) in a 4-credit course plus B (3.0) in a 3-credit course → (16 + 9) ÷ 7 = <strong>3.57</strong>.</p>
+    </details>
+    <details>
+      <summary>What are the standard 4.0 grade points?</summary>
+      <p>Common US 4.0 scale with plus/minus: A/A+ = 4.0, A− = 3.67, B+ = 3.33, B = 3.0, B− = 2.67, C+ = 2.33, C = 2.0, C− = 1.67, D+ = 1.33, D = 1.0, D− = 0.67, F = 0. Scales vary by school — always confirm your institution's table.</p>
+    </details>
+    <details>
+      <summary>How do I calculate cumulative GPA?</summary>
+      <p>Cumulative GPA = (old quality points + new quality points) ÷ (old credits + new credits). Your old quality points = current cumulative GPA × completed credits. Enter those two numbers above and the calculator projects your new cumulative automatically.</p>
+    </details>
+    <details>
+      <summary>Does an F count toward GPA?</summary>
+      <p>Yes. An F earns 0 grade points, but its credits still count in the denominator — so a failed course drags your GPA down. Some schools have grade-replacement policies for retaken courses; check yours.</p>
+    </details>
+    <details>
+      <summary>Is this GPA calculator accurate?</summary>
+      <p>The arithmetic is exact for the selected scale. The uncertainty is never the math — it's which scale your school uses. Confirm your institution's grade-point table before relying on the number for scholarships or honors cutoffs.</p>
+    </details>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>GradeLab — a free study tool. Math is done locally in your browser; nothing is sent anywhere. <a href="../">Final exam calculator</a></p>
+</footer>
+
+<script src="../gpa.js"></script>
+</body>
+</html>
