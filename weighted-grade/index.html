@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weighted Grade Calculator — Calculate Your Weighted Average | GradeLab</title>
+<meta name="description" content="Free weighted grade calculator: enter each category's score and weight (homework, quizzes, exams), get your weighted average and letter grade, plus the score you need on remaining work to hit your target. Runs in your browser, no sign-up, no tracking.">
+<link rel="canonical" href="https://grade.mimito6.uk/weighted-grade">
+<meta property="og:title" content="GradeLab — Weighted Grade Calculator">
+<meta property="og:description" content="Weight your homework, quizzes and exams correctly and see what you need on the rest of the course to hit your target. Free, no sign-up.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://grade.mimito6.uk/weighted-grade">
+<link rel="stylesheet" href="../styles.css">
+<style>
+.w-row { display: grid; grid-template-columns: 1.4fr 1fr 1fr 34px; gap: 8px; margin-bottom: 8px; align-items: center; }
+.w-row input { width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 15px; }
+.w-row .remove-row { background: none; border: none; font-size: 18px; cursor: pointer; color: #94a3b8; line-height: 1; }
+.w-row .remove-row:hover { color: #e11d48; }
+.w-summary { background: #f1f5f9; border-radius: 12px; padding: 16px 20px; margin: 16px 0; }
+.w-summary .big { font-size: 34px; font-weight: 700; margin: 4px 0; }
+.w-summary .meta { color: #475569; font-size: 14px; }
+.w-summary .need { color: #1e40af; font-size: 15px; margin-top: 10px; }
+.tools-nav { margin: 8px 0 0; font-size: 14px; }
+.tools-nav a { color: #475569; text-decoration: none; margin-right: 14px; }
+.tools-nav a:hover { text-decoration: underline; }
+@media (max-width: 520px) { .w-row { grid-template-columns: 1.2fr 1fr 1fr 30px; } }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "GradeLab — Weighted Grade Calculator",
+  "url": "https://grade.mimito6.uk/weighted-grade",
+  "applicationCategory": "EducationalApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free weighted grade calculator: enter each category's score and weight, get your weighted average and letter grade, plus the score you need on remaining work to reach your target grade."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is a weighted grade calculated?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Multiply each category score by its weight, add them up, and divide by the total weight counted. Example: homework 90% worth 30, quizzes 80% worth 20 and a midterm 70% worth 20 give (90×30 + 80×20 + 70×20) ÷ 70 = 81.43%, a B−. Categories not yet graded are not counted as zero — they show up as remaining weight." }
+    },
+    {
+      "@type": "Question",
+      "name": "What if my weights do not add up to 100%?",
+      "acceptedAnswer": { "@type": "Answer", "text": "That is normal mid-semester: it just means part of the grade is not graded yet. GradeLab reports your weighted average over the categories counted so far, and tells you how much weight is still ungraded. Enter the target grade to see what average you need on that remaining weight." }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I find what score I need on the rest of the course?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Enter a target grade. The required average on the remaining weight is (Target × 100 − points earned so far) ÷ remaining weight. Example: with 81.43% over 70% of the grade, reaching 85% overall needs (8500 − 5700) ÷ 30 = 93.33% on the remaining 30%." }
+    },
+    {
+      "@type": "Question",
+      "name": "What does it mean if the required score is over 100%?",
+      "acceptedAnswer": { "@type": "Answer", "text": "It means the target is mathematically out of reach through the remaining work alone — even a perfect score would not be enough. The honest move is to aim for the highest grade you can still reach, or ask your instructor about extra credit." }
+    },
+    {
+      "@type": "Question",
+      "name": "What letter grade scale does this calculator use?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The common US plus/minus scale: A+ ≥ 97%, A ≥ 93%, A− ≥ 90%, B+ ≥ 87%, B ≥ 83%, B− ≥ 80%, C+ ≥ 77%, C ≥ 73%, C− ≥ 70%, D+ ≥ 67%, D ≥ 63%, D− ≥ 60%, F below 60%. Scales vary by school and instructor — confirm your syllabus." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="brand"><span class="brand-mark">GL</span> GradeLab</div>
+  <p class="tagline">Free grade tools for students</p>
+  <nav class="tools-nav" aria-label="GradeLab tools">
+    <a href="../">Final Exam Calculator</a>
+    <a href="../gpa-calculator">GPA Calculator</a>
+    <a href="../grade-average">Grade Average Calculator</a>
+    <a href="./" aria-current="page">Weighted Grade Calculator</a>
+  </nav>
+</header>
+
+<main>
+  <h1>Weighted Grade Calculator — Weight Your Scores Correctly</h1>
+  <p class="intro">Syllabus weights matter: a 90% homework average does not balance a 70% exam if the exam is worth twice as much. Enter each category's score and weight, and GradeLab computes your true weighted average — plus the score you need on the rest of the course to hit your target. Everything runs in your browser; nothing is uploaded or tracked.</p>
+
+  <section aria-label="Weighted grade calculator">
+    <p class="hint">One row per category. Score is the category's percentage; weight is its share of the final grade (e.g. homework 30 means 30%).</p>
+    <div id="w-rows" aria-live="polite"></div>
+    <button class="ghost-btn" id="add-w-row" type="button">+ Add category</button>
+
+    <div class="field">
+      <label for="w-target">Target overall grade (%) — optional</label>
+      <input id="w-target" type="number" min="0" max="100" step="0.1" value="90" inputmode="decimal">
+    </div>
+
+    <div class="w-summary">
+      <div class="meta">Weighted grade so far</div>
+      <div class="big" id="w-grade">—</div>
+      <div class="meta" id="w-letter"></div>
+      <div class="meta" id="w-detail">Add at least one category with a score and a weight above 0.</div>
+      <div class="need" id="w-need"></div>
+    </div>
+    <p class="hint">Worked example: homework 90% (weight 30), quizzes 80% (20), midterm 70% (20) → (90×30 + 80×20 + 70×20) ÷ 70 = <strong>81.43%</strong> (B−), with 30% of the grade still ungraded. To finish at 85% overall you need <strong>93.33%</strong> on that remaining 30%.</p>
+  </section>
+
+  <section class="faq" aria-label="Frequently asked questions">
+    <h2>Frequently asked questions</h2>
+    <details open>
+      <summary>How is a weighted grade calculated?</summary>
+      <p>Multiply each category score by its weight, add them up, and divide by the total weight counted. Example: homework 90% (weight 30), quizzes 80% (20), midterm 70% (20) → (90×30 + 80×20 + 70×20) ÷ 70 = <strong>81.43%</strong>, a B−. Categories not yet graded are <em>not</em> counted as zero — they show up as remaining weight.</p>
+    </details>
+    <details>
+      <summary>What if my weights don't add up to 100%?</summary>
+      <p>That's normal mid-semester: part of the grade just isn't graded yet. The calculator reports your weighted average over the categories counted so far, and tells you how much weight is still ungraded. Enter a target grade to see what average you need on that remaining weight.</p>
+    </details>
+    <details>
+      <summary>How do I find what I need on the rest of the course?</summary>
+      <p>Enter a target grade. The required average on the remaining weight is (Target × 100 − points earned so far) ÷ remaining weight. Example: 81.43% over 70% of the grade, target 85% → (8500 − 5700) ÷ 30 = <strong>93.33%</strong> on the remaining 30%.</p>
+    </details>
+    <details>
+      <summary>What does it mean if the required score is over 100%?</summary>
+      <p>The target is mathematically out of reach through the remaining work alone — even a perfect score wouldn't get you there. The honest move is to aim for the highest grade you can still reach, or ask your instructor about extra credit.</p>
+    </details>
+    <details>
+      <summary>What letter grade scale is used?</summary>
+      <p>The common US plus/minus scale: A+ ≥ 97%, A ≥ 93%, A− ≥ 90%, B+ ≥ 87%, B ≥ 83%, B− ≥ 80%, C+ ≥ 77%, C ≥ 73%, C− ≥ 70%, D+ ≥ 67%, D ≥ 63%, D− ≥ 60%, F below 60%. Scales vary by school and instructor — confirm your syllabus.</p>
+    </details>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>GradeLab — a free study tool. Math is done locally in your browser; nothing is sent anywhere. <a href="../">Final exam calculator</a> · <a href="../gpa-calculator">GPA calculator</a> · <a href="../grade-average">Grade average calculator</a></p>
+</footer>
+
+<script src="../weighted.js"></script>
+</body>
+</html>
