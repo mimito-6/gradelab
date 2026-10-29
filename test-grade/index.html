@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Test Grade Calculator — What Did I Get on My Test? | GradeLab</title>
+<meta name="description" content="Free test grade calculator: enter correct answers and total questions to get your percentage, letter grade, and how many more correct answers each higher grade would have needed. Runs in your browser, no sign-up, no tracking.">
+<link rel="canonical" href="https://grade.mimito6.uk/test-grade">
+<meta property="og:title" content="GradeLab — Test Grade Calculator">
+<meta property="og:description" content="Turn correct answers into a percentage and letter grade, and see exactly how many more right answers each higher grade needed. Free, no sign-up.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://grade.mimito6.uk/test-grade">
+<link rel="stylesheet" href="../styles.css">
+<style>
+.t-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 8px; }
+.t-grid .field { margin: 0; }
+.t-grid .field input { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 16px; }
+.t-summary { background: #f1f5f9; border-radius: 12px; padding: 16px 20px; margin: 16px 0; }
+.t-summary .big { font-size: 34px; font-weight: 700; margin: 4px 0; }
+.t-summary .meta { color: #475569; font-size: 14px; }
+.t-summary table { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: 14px; }
+.t-summary th, .t-summary td { text-align: left; padding: 6px 8px; border-bottom: 1px solid #e2e8f0; }
+.t-summary th { color: #475569; font-weight: 600; }
+.t-summary tr.you-are-here td { background: #dbeafe; font-weight: 600; }
+.tools-nav { margin: 8px 0 0; font-size: 14px; }
+.tools-nav a { color: #475569; text-decoration: none; margin-right: 14px; }
+.tools-nav a:hover { text-decoration: underline; }
+@media (max-width: 520px) { .t-grid { grid-template-columns: 1fr; } }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "GradeLab — Test Grade Calculator",
+  "url": "https://grade.mimito6.uk/test-grade",
+  "applicationCategory": "EducationalApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free test grade calculator: enter correct answers and total questions to get your percentage, letter grade, and how many more correct answers each higher grade would have needed."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is a test grade calculated?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Divide correct answers by total questions and multiply by 100. Example: 42 correct out of 50 is 42 ÷ 50 × 100 = 84%, a B on the common US scale. Missed questions are simply total minus correct — here, 8." }
+    },
+    {
+      "@type": "Question",
+      "name": "Does it work for points instead of questions?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes — the math is identical. Enter points earned as 'correct' and points possible as 'total'. Partial credit works too: 17.5 points out of 20 is 87.5%, a B+." }
+    },
+    {
+      "@type": "Question",
+      "name": "How many more correct answers would I have needed for the next grade?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The table below the result shows the minimum correct count for every letter grade. Because you cannot get half a question right, the count is rounded up: an A needs 93% of 50 questions, which is 46.5, so 47 correct answers in practice. At 42 correct you are 2 short of a B+ (44) and 5 short of an A (47)." }
+    },
+    {
+      "@type": "Question",
+      "name": "What letter grade scale does this calculator use?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The common US plus/minus scale: A+ ≥ 97%, A ≥ 93%, A− ≥ 90%, B+ ≥ 87%, B ≥ 83%, B− ≥ 80%, C+ ≥ 77%, C ≥ 73%, C− ≥ 70%, D+ ≥ 67%, D ≥ 63%, D− ≥ 60%, F below 60%. Scales vary by school and instructor — confirm your syllabus." }
+    },
+    {
+      "@type": "Question",
+      "name": "Can my score be over 100%?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. Correct answers cannot exceed the total, so the highest possible score is 100%. If your test offered extra credit, add the extra-credit points to both numbers — for example 52 points earned out of a 50-point test plus 5 extra-credit points possible is 52 ÷ 55 = 94.5% — or use GradeLab's grade average calculator, which reports scores over 100% as-is." }
+    },
+    {
+      "@type": "Question",
+      "name": "How is this different from the grade average calculator?",
+      "acceptedAnswer": { "@type": "Answer", "text": "This page grades one single test: correct over total. The grade average calculator averages several tests or assignments into one percentage, and the weighted grade calculator applies different weights to homework, quizzes and exams." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="brand"><span class="brand-mark">GL</span> GradeLab</div>
+  <p class="tagline">Free grade tools for students</p>
+  <nav class="tools-nav" aria-label="GradeLab tools">
+    <a href="../">Final Exam Calculator</a>
+    <a href="../gpa-calculator">GPA Calculator</a>
+    <a href="../grade-average">Grade Average Calculator</a>
+    <a href="../weighted-grade">Weighted Grade Calculator</a>
+    <a href="./" aria-current="page">Test Grade Calculator</a>
+  </nav>
+</header>
+
+<main>
+  <h1>Test Grade Calculator — What Did I Get on My Test?</h1>
+  <p class="intro">You know how many questions you got right. This calculator turns that into a percentage and a letter grade — and shows exactly how many more correct answers each higher grade would have needed, so there is no mystery about how close you were. Everything runs in your browser; nothing is uploaded or tracked.</p>
+
+  <section aria-label="Test grade calculator">
+    <div class="t-grid">
+      <div class="field">
+        <label for="t-correct">Correct answers (or points earned)</label>
+        <input id="t-correct" type="number" min="0" step="any" value="42" inputmode="decimal">
+      </div>
+      <div class="field">
+        <label for="t-total">Total questions (or points possible)</label>
+        <input id="t-total" type="number" min="1" step="any" value="50" inputmode="decimal">
+      </div>
+    </div>
+
+    <div class="t-summary">
+      <div class="meta">Your test score</div>
+      <div class="big" id="t-pct">—</div>
+      <div class="meta" id="t-letter"></div>
+      <div class="meta" id="t-detail">Enter correct answers and a total above 0.</div>
+      <div id="t-table" aria-live="polite"></div>
+    </div>
+    <p class="hint">Worked example: 42 correct out of 50 → 42 ÷ 50 × 100 = <strong>84%</strong> (B), 8 missed. An A would have needed 47 correct (93% of 50 is 46.5, rounded up) — 5 more right answers.</p>
+  </section>
+
+  <section class="faq" aria-label="Frequently asked questions">
+    <h2>Frequently asked questions</h2>
+    <details open>
+      <summary>How is a test grade calculated?</summary>
+      <p>Divide correct answers by total questions and multiply by 100. Example: 42 correct out of 50 → 42 ÷ 50 × 100 = <strong>84%</strong>, a B. Missed questions are simply total minus correct — here, 8.</p>
+    </details>
+    <details>
+      <summary>Does it work for points instead of questions?</summary>
+      <p>Yes — the math is identical. Enter points earned as "correct" and points possible as "total". Partial credit works too: 17.5 points out of 20 = <strong>87.5%</strong>, a B+.</p>
+    </details>
+    <details>
+      <summary>How many more correct answers would I have needed for the next grade?</summary>
+      <p>The table above shows the minimum correct count for every letter grade. Because you can't get half a question right, the count is rounded up: an A needs 93% of 50 questions, which is 46.5, so <strong>47</strong> correct in practice. At 42 correct you are 2 short of a B+ (44) and 5 short of an A (47).</p>
+    </details>
+    <details>
+      <summary>What letter grade scale is used?</summary>
+      <p>The common US plus/minus scale: A+ ≥ 97%, A ≥ 93%, A− ≥ 90%, B+ ≥ 87%, B ≥ 83%, B− ≥ 80%, C+ ≥ 77%, C ≥ 73%, C− ≥ 70%, D+ ≥ 67%, D ≥ 63%, D− ≥ 60%, F below 60%. Scales vary by school and instructor — confirm your syllabus.</p>
+    </details>
+    <details>
+      <summary>Can my score be over 100%?</summary>
+      <p>No. Correct answers can't exceed the total, so the highest possible score is 100%. If your test offered extra credit, add the extra-credit points to both numbers — e.g. 52 points earned out of a 50-point test plus 5 extra-credit points possible is 52 ÷ 55 = 94.5% — or use the grade average calculator, which reports scores over 100% as-is.</p>
+    </details>
+    <details>
+      <summary>How is this different from the grade average calculator?</summary>
+      <p>This page grades one single test: correct over total. The grade average calculator averages several tests or assignments into one percentage, and the weighted grade calculator applies different weights to homework, quizzes and exams.</p>
+    </details>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>GradeLab — a free study tool. Math is done locally in your browser; nothing is sent anywhere. <a href="../">Final exam calculator</a> · <a href="../gpa-calculator">GPA calculator</a> · <a href="../grade-average">Grade average calculator</a> · <a href="../weighted-grade">Weighted grade calculator</a></p>
+</footer>
+
+<script src="../testgrade.js"></script>
+</body>
+</html>
