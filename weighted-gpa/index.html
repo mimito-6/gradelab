@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weighted GPA Calculator — Honors & AP/IB GPA | GradeLab</title>
+<meta name="description" content="Free weighted GPA calculator: enter your courses, letter grades, credit hours and course level (Regular, Honors +0.5, AP/IB +1.0) to get your weighted GPA next to your unweighted GPA. Runs in your browser, no sign-up, no tracking.">
+<link rel="canonical" href="https://grade.mimito6.uk/weighted-gpa">
+<meta property="og:title" content="GradeLab — Weighted GPA Calculator">
+<meta property="og:description" content="Calculate your weighted GPA for Honors and AP/IB courses, side by side with your unweighted GPA. Free, instant, no sign-up.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://grade.mimito6.uk/weighted-gpa">
+<link rel="stylesheet" href="../styles.css">
+<style>
+.wgpa-row { display: grid; grid-template-columns: 1fr 80px 150px 80px 34px; gap: 8px; margin-bottom: 8px; align-items: center; }
+.wgpa-row input, .wgpa-row select { width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 15px; }
+.wgpa-row .remove-row { background: none; border: none; font-size: 18px; cursor: pointer; color: #94a3b8; line-height: 1; }
+.wgpa-row .remove-row:hover { color: #e11d48; }
+@media (max-width: 640px) { .wgpa-row { grid-template-columns: 1fr 70px 120px; } .wgpa-row .w-credits { grid-column: 2 / 3; } .wgpa-row .remove-row { grid-column: 3 / 4; } }
+.wgpa-summary { background: #f1f5f9; border-radius: 12px; padding: 16px 20px; margin: 16px 0; }
+.wgpa-summary .big { font-size: 34px; font-weight: 700; margin: 4px 0; }
+.wgpa-summary .meta { color: #475569; font-size: 14px; }
+.tools-nav { margin: 8px 0 0; font-size: 14px; }
+.tools-nav a { color: #475569; text-decoration: none; margin-right: 14px; }
+.tools-nav a:hover { text-decoration: underline; }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "GradeLab — Weighted GPA Calculator",
+  "url": "https://grade.mimito6.uk/weighted-gpa",
+  "applicationCategory": "EducationalApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free weighted GPA calculator: enter courses, grades, credits and course level (Regular, Honors +0.5, AP/IB +1.0) to get weighted and unweighted GPA."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is weighted GPA calculated?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Each course's grade points get a level bonus — Regular +0, Honors +0.5, AP/IB +1.0 — then the same credit-weighted average is used: multiply each course's weighted points by its credit hours, add them up, and divide by total credits. Example: an A in AP (4.0 + 1.0 = 5.0) in a 4-credit course plus a B in a regular 3-credit course (3.0) gives (20 + 9) / 7 = 4.14 weighted, versus 3.57 unweighted." }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between weighted and unweighted GPA?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Unweighted GPA caps at 4.0 and treats every course equally. Weighted GPA rewards harder courses with bonus points, so it can exceed 4.0 — up to 5.0 when every course is AP/IB and graded A. Colleges often recalculate GPA on their own scale, so the weighted number is best used as your school's own reporting figure, not a universal comparison." }
+    },
+    {
+      "@type": "Question",
+      "name": "Do all schools use Honors +0.5 and AP +1.0?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. +0.5 for Honors and +1.0 for AP/IB is the most common US convention, which is why this calculator uses it, but some districts use +0.5 for AP, cap weighted GPA at 4.0, or weight only certain courses. Check your school's handbook — if your school weights differently, the bonus, not the arithmetic, is what changes." }
+    },
+    {
+      "@type": "Question",
+      "name": "Does an F in an AP course still get the +1.0 bonus?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. An F earns 0 grade points, and this calculator adds no bonus to a failed course — a bonus rewards passing harder work, it does not rescue a failure. The failed course's credits still count in the denominator, so it pulls both weighted and unweighted GPA down." }
+    },
+    {
+      "@type": "Question",
+      "name": "Can weighted GPA go above 5.0?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Not on this scale: the highest base grade is 4.0 (A/A+) and the largest bonus is +1.0, so the ceiling is 5.0. If your school reports weighted GPAs above 5.0, it uses a different scale (for example a 6.0 scale) and this calculator's numbers will not match it." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is this weighted GPA calculator accurate?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The arithmetic is exact for the stated scale and bonuses. The uncertainty is never the math — it is which weighting your school applies. Confirm your school's Honors/AP bonus table before relying on the number for class rank or college applications." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="brand"><span class="brand-mark">GL</span> GradeLab</div>
+  <p class="tagline">Free grade tools for students</p>
+  <nav class="tools-nav" aria-label="GradeLab tools">
+    <a href="../">Final Exam Calculator</a>
+    <a href="../gpa-calculator">GPA Calculator</a>
+    <a href="../grade-average">Grade Average Calculator</a>
+    <a href="../weighted-grade">Weighted Grade Calculator</a>
+    <a href="../test-grade">Test Grade Calculator</a>
+    <a href="./" aria-current="page">Weighted GPA Calculator</a>
+  </nav>
+</header>
+
+<main>
+  <h1>Weighted GPA Calculator — Honors &amp; AP/IB GPA</h1>
+  <p class="intro">Add your courses with grades, credit hours, and course level. GradeLab computes your weighted GPA — Regular +0, Honors +0.5, AP/IB +1.0 — right next to your unweighted GPA, so you can see exactly how much the harder courses lift you. Everything runs in your browser; nothing is uploaded or tracked.</p>
+
+  <section aria-label="Weighted GPA calculator">
+    <div id="wgpa-rows" aria-live="polite"></div>
+    <button class="ghost-btn" id="add-wgpa-row" type="button">+ Add course</button>
+
+    <div class="wgpa-summary" id="wgpa-summary">
+      <div class="meta">Weighted GPA</div>
+      <div class="big" id="wgpa-weighted">—</div>
+      <div class="meta" id="wgpa-detail">Add at least one course with credits.</div>
+    </div>
+
+    <h2>How it works</h2>
+    <p>Weighted GPA uses the same credit-weighted average as unweighted GPA, with one extra step: each course's grade points get a level bonus before averaging. An A in an AP course counts as 5.0, an A in Honors as 4.5, an A in a regular course as 4.0. Example: A in AP (4 credits) + B regular (3 credits) → weighted (20 + 9) ÷ 7 = <strong>4.14</strong>, unweighted (16 + 9) ÷ 7 = <strong>3.57</strong>.</p>
+    <p class="hint">Two honest limits: the +0.5 / +1.0 bonuses are the most common US convention, not a universal rule — check your school's handbook. And an F earns 0 points with no bonus, so a failed AP course still drags your GPA down.</p>
+  </section>
+
+  <section class="faq" aria-label="Frequently asked questions">
+    <h2>Frequently asked questions</h2>
+    <details open>
+      <summary>How is weighted GPA calculated?</summary>
+      <p>Each course's grade points get a level bonus — Regular +0, Honors +0.5, AP/IB +1.0 — then the usual credit-weighted average: multiply each course's weighted points by its credits, add them up, divide by total credits. Example: A in AP (5.0) in a 4-credit course plus B regular (3.0) in a 3-credit course → (20 + 9) ÷ 7 = <strong>4.14</strong> weighted, versus 3.57 unweighted.</p>
+    </details>
+    <details>
+      <summary>What is the difference between weighted and unweighted GPA?</summary>
+      <p>Unweighted GPA caps at 4.0 and treats every course equally. Weighted GPA rewards harder courses, so it can reach 5.0 when every course is AP/IB with an A. Colleges often recalculate GPA on their own scale, so treat the weighted number as your school's reporting figure, not a universal comparison.</p>
+    </details>
+    <details>
+      <summary>Do all schools use Honors +0.5 and AP +1.0?</summary>
+      <p>No. That is the most common US convention, which is why this calculator uses it — but some districts give AP only +0.5, cap weighted GPA at 4.0, or weight only certain courses. Check your school's handbook; if your school differs, it is the bonus that changes, not the arithmetic.</p>
+    </details>
+    <details>
+      <summary>Does an F in an AP course still get the +1.0 bonus?</summary>
+      <p>No. An F earns 0 grade points and no bonus — a bonus rewards passing harder work, it does not rescue a failure. The failed course's credits still count in the denominator, so it pulls both weighted and unweighted GPA down.</p>
+    </details>
+    <details>
+      <summary>Can weighted GPA go above 5.0?</summary>
+      <p>Not on this scale: the highest base grade is 4.0 and the largest bonus is +1.0, so the ceiling is 5.0. If your school reports weighted GPAs above 5.0, it uses a different scale (for example a 6.0 scale) and this calculator's numbers will not match it.</p>
+    </details>
+    <details>
+      <summary>Is this weighted GPA calculator accurate?</summary>
+      <p>The arithmetic is exact for the stated scale and bonuses. The uncertainty is never the math — it is which weighting your school applies. Confirm your school's Honors/AP bonus table before relying on the number for class rank or college applications.</p>
+    </details>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>GradeLab — a free study tool. Math is done locally in your browser; nothing is sent anywhere. <a href="../">Final exam calculator</a> · <a href="../gpa-calculator">GPA calculator</a> · <a href="../grade-average">Grade average calculator</a> · <a href="../weighted-grade">Weighted grade calculator</a> · <a href="../test-grade">Test grade calculator</a></p>
+</footer>
+
+<script src="../wgpa.js"></script>
+</body>
+</html>
