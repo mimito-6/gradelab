@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grade Curve Calculator — Square Root, Flat &amp; Scale Curves | GradeLab</title>
+<meta name="description" content="Free grade curve calculator: apply a square-root curve, flat points, or scaling to the top score and see your curved score, letter grade, and how each method compares. Runs in your browser, no sign-up, no tracking.">
+<link rel="canonical" href="https://grade.mimito6.uk/grade-curve">
+<meta property="og:title" content="GradeLab — Grade Curve Calculator">
+<meta property="og:description" content="Apply a square-root curve, flat points, or scaling to the top score — see your curved score and letter grade, and compare all three methods side by side. Free, no sign-up.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://grade.mimito6.uk/grade-curve">
+<link rel="stylesheet" href="../styles.css">
+<style>
+.t-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 8px; }
+.t-grid .field { margin: 0; }
+.t-grid .field input, .t-grid .field select { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 16px; background: #fff; }
+.t-summary { background: #f1f5f9; border-radius: 12px; padding: 16px 20px; margin: 16px 0; }
+.t-summary .big { font-size: 34px; font-weight: 700; margin: 4px 0; }
+.t-summary .meta { color: #475569; font-size: 14px; }
+.t-summary table { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: 14px; }
+.t-summary th, .t-summary td { text-align: left; padding: 6px 8px; border-bottom: 1px solid #e2e8f0; }
+.t-summary th { color: #475569; font-weight: 600; }
+.t-summary tr.you-are-here td { background: #dbeafe; font-weight: 600; }
+.guide table { width: 100%; border-collapse: collapse; margin: 10px 0 16px; font-size: 14px; }
+.guide th, .guide td { text-align: left; padding: 6px 8px; border-bottom: 1px solid #e2e8f0; }
+.guide th { color: #475569; font-weight: 600; }
+.tools-nav { margin: 8px 0 0; font-size: 14px; }
+.tools-nav a { color: #475569; text-decoration: none; margin-right: 14px; }
+.tools-nav a:hover { text-decoration: underline; }
+@media (max-width: 520px) { .t-grid { grid-template-columns: 1fr; } }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "GradeLab — Grade Curve Calculator",
+  "url": "https://grade.mimito6.uk/grade-curve",
+  "applicationCategory": "EducationalApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free grade curve calculator: apply a square-root curve, flat points, or scaling to the top score and see your curved score, letter grade, and how each method compares."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a grade curve?",
+      "acceptedAnswer": { "@type": "Answer", "text": "A grade curve is an adjustment a teacher applies when a test turned out harder than intended — the raw scores are shifted up so the grades reflect what students knew, not how brutal the exam was. This calculator only does the math: it never decides whether a curve should be applied. That call is your teacher's." }
+    },
+    {
+      "@type": "Question",
+      "name": "How does the square root curve work?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Multiply the square root of your raw score by 10: curved = 10 × √raw. It lifts low scores the most — 25 becomes 50 (+25), 64 becomes 80 (+16), 81 becomes 90 (+9) — while 0 and 100 stay exactly where they are. A raw 72 becomes 84.85, moving from C− to B." }
+    },
+    {
+      "@type": "Question",
+      "name": "How does scaling to the top score work?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The highest score in the class becomes 100 and everyone is scaled by the same factor: curved = raw ÷ top score × 100. If the top score was 88, a raw 72 becomes 81.82. Every student keeps their exact ranking, just stretched onto a 0–100 scale." }
+    },
+    {
+      "@type": "Question",
+      "name": "Can a curve lower my grade?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Not with any of the three methods on this page: the square-root curve never lowers a score between 0 and 100, flat points only add, and scaling to the top score only stretches upward. Some teachers use other schemes, such as a bell curve that re-centers the class average, and those can lower individual grades — this calculator does not do those." }
+    },
+    {
+      "@type": "Question",
+      "name": "Which curve will my teacher use?",
+      "acceptedAnswer": { "@type": "Answer", "text": "There is no standard — it depends on the teacher and the class. That is why the comparison table shows all three methods for your score at once: a raw 72 is 84.85 under the square-root curve, 77 with 5 flat points, and 81.82 scaled to a top score of 88. Ask your teacher which method (if any) they apply before counting on a curved grade." }
+    },
+    {
+      "@type": "Question",
+      "name": "How is this different from the test grade calculator?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The test grade calculator grades your raw score exactly as it stands: 42 out of 50 is 84%, a B. This page adjusts that raw score first, then grades the adjusted number. Use the test grade calculator to see what you actually scored, and this one to see what a curve would do to it." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="brand"><span class="brand-mark">GL</span> GradeLab</div>
+  <p class="tagline">Free grade tools for students</p>
+  <nav class="tools-nav" aria-label="GradeLab tools">
+    <a href="../">Final Exam Calculator</a>
+    <a href="../gpa-calculator">GPA Calculator</a>
+    <a href="../grade-average">Grade Average Calculator</a>
+    <a href="../weighted-grade">Weighted Grade Calculator</a>
+    <a href="../test-grade">Test Grade Calculator</a>
+    <a href="../weighted-gpa">Weighted GPA Calculator</a>
+    <a href="./" aria-current="page">Grade Curve Calculator</a>
+  </nav>
+</header>
+
+<main>
+  <h1>Grade Curve Calculator — What Would a Curve Do to My Score?</h1>
+  <p class="intro">Your teacher says the test will be curved — but how much does that actually help? Enter your raw score and pick a curve method: the square-root curve, flat points, or scaling to the top score. You get the curved score and letter grade, plus a side-by-side comparison of all three methods. Everything runs in your browser; nothing is uploaded or tracked.</p>
+
+  <section aria-label="Grade curve calculator">
+    <div class="t-grid">
+      <div class="field">
+        <label for="c-raw">Raw score (0–100)</label>
+        <input id="c-raw" type="number" min="0" max="100" step="any" value="72" inputmode="decimal">
+      </div>
+      <div class="field">
+        <label for="c-method">Curve method</label>
+        <select id="c-method">
+          <option value="sqrt" selected>Square root (10 × √score)</option>
+          <option value="flat">Flat points (add points)</option>
+          <option value="scale">Scale to top score</option>
+        </select>
+      </div>
+      <div class="field" id="c-points-row" style="display:none">
+        <label for="c-points">Points to add</label>
+        <input id="c-points" type="number" min="0" step="any" value="5" inputmode="decimal">
+      </div>
+      <div class="field" id="c-max-row" style="display:none">
+        <label for="c-max">Top score in the class</label>
+        <input id="c-max" type="number" min="1" max="100" step="any" value="88" inputmode="decimal">
+      </div>
+    </div>
+
+    <div class="t-summary">
+      <div class="meta">Your curved score</div>
+      <div class="big" id="c-curved">—</div>
+      <div class="meta" id="c-detail">Enter a raw score between 0 and 100.</div>
+      <div id="c-table" aria-live="polite"></div>
+    </div>
+    <p class="hint">Worked example: raw <strong>72%</strong> (C−) → square-root curve <strong>84.85%</strong> (B), flat +8 points → <strong>80%</strong> (B−), scaled to a top score of 88 → <strong>81.82%</strong> (B−). Same test, three different answers — which is why the method matters.</p>
+  </section>
+
+  <section class="guide" aria-label="How the three curves work">
+    <h2>Three common curves, explained</h2>
+    <h3>1. Square-root curve — curved = 10 × √raw</h3>
+    <p>The classic curve. It helps struggling students the most and barely touches high scores, because the square root compresses the top of the scale. 0 and 100 never move.</p>
+    <table>
+      <thead><tr><th>Raw score</th><th>Curved score</th><th>Gain</th></tr></thead>
+      <tbody>
+        <tr><td>25</td><td>50.00</td><td>+25.00</td></tr>
+        <tr><td>36</td><td>60.00</td><td>+24.00</td></tr>
+        <tr><td>49</td><td>70.00</td><td>+21.00</td></tr>
+        <tr><td>64</td><td>80.00</td><td>+16.00</td></tr>
+        <tr><td>81</td><td>90.00</td><td>+9.00</td></tr>
+        <tr><td>100</td><td>100.00</td><td>0</td></tr>
+      </tbody>
+    </table>
+    <h3>2. Flat points — curved = raw + points (capped at 100)</h3>
+    <p>The simplest curve: everyone gets the same number of points. A 72 with +8 becomes 80; a 96 with +8 becomes 100, not 104 — scores stop at the ceiling. It treats every student equally, which is exactly why teachers like it for a test that was a few points too hard across the board.</p>
+    <h3>3. Scale to the top score — curved = raw ÷ top score × 100</h3>
+    <p>The highest score in the class becomes 100 and everyone else is stretched by the same factor. If the top score was 88, a 72 becomes 81.82 and a 44 becomes 50.00. Nobody's rank changes — the order of the class is exactly preserved, only the scale moves.</p>
+    <h3>What a curve can't do</h3>
+    <p>A curve cannot turn a blank exam into a pass: 0 stays 0 under the square-root curve and under scaling. It also cannot fix a grade that was already fair — if the class average was 85, most teachers won't curve at all. And a curve is the teacher's decision, not a right: this calculator shows what each method <em>would</em> do, so you can stop guessing, but the number that counts is the one your teacher actually applies.</p>
+  </section>
+
+  <section class="faq" aria-label="Frequently asked questions">
+    <h2>Frequently asked questions</h2>
+    <details open>
+      <summary>What is a grade curve?</summary>
+      <p>A grade curve is an adjustment a teacher applies when a test turned out harder than intended — the raw scores are shifted up so the grades reflect what students knew, not how brutal the exam was. This calculator only does the math: it never decides whether a curve should be applied. That call is your teacher's.</p>
+    </details>
+    <details>
+      <summary>How does the square root curve work?</summary>
+      <p>Multiply the square root of your raw score by 10: curved = 10 × √raw. It lifts low scores the most — 25 becomes 50 (+25), 64 becomes 80 (+16), 81 becomes 90 (+9) — while 0 and 100 stay exactly where they are. A raw 72 becomes 84.85, moving from C− to B.</p>
+    </details>
+    <details>
+      <summary>How does scaling to the top score work?</summary>
+      <p>The highest score in the class becomes 100 and everyone is scaled by the same factor: curved = raw ÷ top score × 100. If the top score was 88, a raw 72 becomes 81.82. Every student keeps their exact ranking, just stretched onto a 0–100 scale.</p>
+    </details>
+    <details>
+      <summary>Can a curve lower my grade?</summary>
+      <p>Not with any of the three methods on this page: the square-root curve never lowers a score between 0 and 100, flat points only add, and scaling to the top score only stretches upward. Some teachers use other schemes, such as a bell curve that re-centers the class average, and those can lower individual grades — this calculator does not do those.</p>
+    </details>
+    <details>
+      <summary>Which curve will my teacher use?</summary>
+      <p>There is no standard — it depends on the teacher and the class. That is why the comparison table shows all three methods for your score at once: a raw 72 is 84.85 under the square-root curve, 77 with 5 flat points, and 81.82 scaled to a top score of 88. Ask your teacher which method (if any) they apply before counting on a curved grade.</p>
+    </details>
+    <details>
+      <summary>How is this different from the test grade calculator?</summary>
+      <p>The test grade calculator grades your raw score exactly as it stands: 42 out of 50 is 84%, a B. This page adjusts that raw score first, then grades the adjusted number. Use the test grade calculator to see what you actually scored, and this one to see what a curve would do to it.</p>
+    </details>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>GradeLab — a free study tool. Math is done locally in your browser; nothing is sent anywhere. <a href="../">Final exam calculator</a> · <a href="../gpa-calculator">GPA calculator</a> · <a href="../grade-average">Grade average calculator</a> · <a href="../weighted-grade">Weighted grade calculator</a> · <a href="../test-grade">Test grade calculator</a> · <a href="../weighted-gpa">Weighted GPA calculator</a></p>
+</footer>
+
+<script src="../curve.js"></script>
+</body>
+</html>
