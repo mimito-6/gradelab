@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Attendance Calculator — How Many Classes Can I Miss? | GradeLab</title>
+<meta name="description" content="Free attendance calculator: enter classes attended and total classes held to see your attendance percentage, how many more classes you can miss before dropping below your school's requirement, or how many in a row you must attend to recover. Runs in your browser, no sign-up, no tracking.">
+<link rel="canonical" href="https://grade.mimito6.uk/attendance">
+<meta property="og:title" content="GradeLab — Attendance Calculator">
+<meta property="og:description" content="How many classes can you miss and still meet the attendance requirement? Enter attended and held classes — see your percentage, your miss budget, and how to recover if you are below. Free, no sign-up.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://grade.mimito6.uk/attendance">
+<link rel="stylesheet" href="../styles.css">
+<style>
+.t-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 8px; }
+.t-grid .field { margin: 0; }
+.t-grid .field input, .t-grid .field select { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 16px; background: #fff; }
+.t-summary { background: #f1f5f9; border-radius: 12px; padding: 16px 20px; margin: 16px 0; }
+.t-summary .big { font-size: 34px; font-weight: 700; margin: 4px 0; }
+.t-summary .meta { color: #475569; font-size: 14px; }
+.t-summary ul { margin: 10px 0 0; padding-left: 20px; font-size: 14px; }
+.t-summary li { margin: 4px 0; }
+.guide table { width: 100%; border-collapse: collapse; margin: 10px 0 16px; font-size: 14px; }
+.guide th, .guide td { text-align: left; padding: 6px 8px; border-bottom: 1px solid #e2e8f0; }
+.guide th { color: #475569; font-weight: 600; }
+.tools-nav { margin: 8px 0 0; font-size: 14px; }
+.tools-nav a { color: #475569; text-decoration: none; margin-right: 14px; }
+.tools-nav a:hover { text-decoration: underline; }
+@media (max-width: 520px) { .t-grid { grid-template-columns: 1fr; } }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "GradeLab — Attendance Calculator",
+  "url": "https://grade.mimito6.uk/attendance",
+  "applicationCategory": "EducationalApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free attendance calculator: enter classes attended and total classes held to see your attendance percentage, how many more classes you can miss before dropping below your school's requirement, or how many in a row you must attend to recover."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is attendance percentage calculated?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Attendance percentage is classes attended divided by classes held, times 100. Attended 18 of 20 classes is 90%. The math is exact — the only thing that varies between schools is the required percentage, which this calculator lets you set." }
+    },
+    {
+      "@type": "Question",
+      "name": "How many classes can I miss and still meet the requirement?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Divide classes attended by the required percentage (as a decimal), subtract the classes held so far, and round down: max misses = attended ÷ requirement − total held. Attended 18 of 20 at a 75% requirement gives 18 ÷ 0.75 − 20 = 4 more misses — 18 out of 24 is exactly 75%, while one more miss drops you to 72%." }
+    },
+    {
+      "@type": "Question",
+      "name": "What if I am already below the attendance requirement?",
+      "acceptedAnswer": { "@type": "Answer", "text": "You need a streak of attended classes: classes to recover = (requirement × total held − attended) ÷ (1 − requirement), rounded up. Attended 12 of 20 at 75% needs 12 attended classes in a row, reaching 24 out of 32 = 75%. Note that a 100% requirement cannot be recovered once a class is missed — no streak brings attendance back to 100%." }
+    },
+    {
+      "@type": "Question",
+      "name": "What does total classes in the course add?",
+      "acceptedAnswer": { "@type": "Answer", "text": "If you know how many classes the whole course has, the calculator projects the full course: your final attendance if you attend every remaining class, and how many of the remaining classes you can miss in total. Attended 18 of 20 in a 30-class course at 75% means attending everything ends at 93.33%, and you can miss 5 of the remaining 10 classes (23 out of 30 = 76.67%). It also tells you honestly when the requirement is already out of reach even with perfect attendance." }
+    },
+    {
+      "@type": "Question",
+      "name": "Do excused absences count?",
+      "acceptedAnswer": { "@type": "Answer", "text": "That depends on your school, not on the math. This calculator counts every absence the same, because that is the conservative reading most syllabi use. Some schools excuse documented absences or count a late arrival as half an absence — check your syllabus or ask your teacher before treating an excused absence as free." }
+    },
+    {
+      "@type": "Question",
+      "name": "How is this different from the grade average calculator?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Both are percentages, but they answer different questions. The grade average calculator averages your scores across assignments; this one tracks presence across class meetings and compares it against a policy threshold. A 90% grade average says nothing about attendance, and 90% attendance says nothing about your grades — use each page for its own question." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="brand"><span class="brand-mark">GL</span> GradeLab</div>
+  <p class="tagline">Free grade tools for students</p>
+  <nav class="tools-nav" aria-label="GradeLab tools">
+    <a href="../">Final Exam Calculator</a>
+    <a href="../gpa-calculator">GPA Calculator</a>
+    <a href="../grade-average">Grade Average Calculator</a>
+    <a href="../weighted-grade">Weighted Grade Calculator</a>
+    <a href="../test-grade">Test Grade Calculator</a>
+    <a href="../weighted-gpa">Weighted GPA Calculator</a>
+    <a href="../grade-curve">Grade Curve Calculator</a>
+    <a href="./" aria-current="page">Attendance Calculator</a>
+  </nav>
+</header>
+
+<main>
+  <h1>Attendance Calculator — How Many Classes Can I Miss?</h1>
+  <p class="intro">Your syllabus says 75% attendance is required — but how many classes is that, really? Enter the classes you have attended and the classes held so far, and get your current percentage, how many more classes you can miss before dropping below the requirement, or how many in a row you must attend to recover if you are already below it. Everything runs in your browser; nothing is uploaded or tracked.</p>
+
+  <section aria-label="Attendance calculator">
+    <div class="t-grid">
+      <div class="field">
+        <label for="a-attended">Classes attended</label>
+        <input id="a-attended" type="number" min="0" step="1" value="18" inputmode="numeric">
+      </div>
+      <div class="field">
+        <label for="a-total">Total classes held so far</label>
+        <input id="a-total" type="number" min="1" step="1" value="20" inputmode="numeric">
+      </div>
+      <div class="field">
+        <label for="a-req">Required attendance (%)</label>
+        <input id="a-req" type="number" min="1" max="100" step="any" value="75" inputmode="decimal">
+      </div>
+      <div class="field">
+        <label for="a-course">Total classes in the course (optional)</label>
+        <input id="a-course" type="number" min="1" step="1" placeholder="e.g. 30" inputmode="numeric">
+      </div>
+    </div>
+
+    <div class="t-summary">
+      <div class="meta">Your current attendance</div>
+      <div class="big" id="a-pct">—</div>
+      <div class="meta" id="a-verdict">Enter your attended and held classes.</div>
+      <div class="meta" id="a-detail"></div>
+      <div id="a-projection" aria-live="polite"></div>
+    </div>
+    <p class="hint">Worked example: attended <strong>18 of 20</strong> classes (90%) with a <strong>75%</strong> requirement — you can miss <strong>4 more</strong> classes (18 out of 24 = 75% exactly; one more miss drops you to 72%). If you had attended only 12 of 20 (60%), you would need to attend the next <strong>12 classes in a row</strong> to climb back to 75% (24 out of 32).</p>
+  </section>
+
+  <section class="guide" aria-label="How the attendance math works">
+    <h2>How the attendance math works</h2>
+    <h3>1. Your percentage — attended ÷ held × 100</h3>
+    <p>Attendance is a simple fraction: classes attended divided by classes held so far, times 100. 18 out of 20 is 90%. There is no rounding trick here — the number is exact, and the only thing that varies between schools is the required percentage (75% is the most common in US colleges; 80% and 85% are also seen).</p>
+    <h3>2. How many classes you can still miss</h3>
+    <p>Each miss adds one to the denominator without adding to the numerator, so your percentage falls a little with every absence. The largest number of further misses that keeps you at or above the requirement is <strong>attended ÷ requirement − total held</strong>, rounded down — a partial class does not exist. The table below uses 18 attended out of 20 held:</p>
+    <table>
+      <thead><tr><th>Requirement</th><th>Classes you can miss</th><th>At the limit</th><th>One more miss</th></tr></thead>
+      <tbody>
+        <tr><td>75%</td><td>4</td><td>18 / 24 = 75.00%</td><td>18 / 25 = 72.00%</td></tr>
+        <tr><td>80%</td><td>2</td><td>18 / 22 = 81.82%</td><td>18 / 23 = 78.26%</td></tr>
+        <tr><td>85%</td><td>1</td><td>18 / 21 = 85.71%</td><td>18 / 22 = 81.82%</td></tr>
+        <tr><td>90%</td><td>0</td><td>18 / 20 = 90.00%</td><td>18 / 21 = 85.71%</td></tr>
+      </tbody>
+    </table>
+    <p>Notice how fast the budget shrinks as the requirement rises: at 90% a 90% record has zero slack. That is not a bug — when you sit exactly on the line, the next absence is the one that breaks it.</p>
+    <h3>3. Recovering when you are already below</h3>
+    <p>Below the line, every attended class pulls your percentage up — but slowly, because the denominator keeps growing too. The streak you need is <strong>(requirement × total held − attended) ÷ (1 − requirement)</strong>, rounded up. Attended 12 of 20 at 75% needs 12 in a row (24 out of 32 = 75%); attended 14 of 20 needs only 4 (18 out of 24 = 75%). And one hard edge: a 100% requirement cannot be recovered at all once a class is missed — no finite streak of attended classes brings a fraction back to 100%.</p>
+    <h3>4. The whole-course view</h3>
+    <p>If you know the total number of classes in the course, the calculator also projects the end of term: attend everything left and you finish at (attended + remaining) ÷ course total; the number of remaining classes you can afford to miss is attended + remaining − requirement × course total, rounded down (and never more than the classes that remain — a finished course has a miss budget of zero). Attended 18 of 20 in a 30-class course at 75%: attend everything and you finish at 93.33%; you can miss 5 of the remaining 10 (23 out of 30 = 76.67%). If even perfect attendance cannot reach the requirement, the calculator says so plainly instead of inventing a number.</p>
+    <h3>What this calculator cannot do</h3>
+    <p>It cannot change your school's policy. Excused absences, late arrivals, and medical leave are handled differently everywhere — this tool counts every absence the same, which is the conservative reading. It also cannot predict the future: the miss budget assumes you attend every other class. Miss one you did not plan for, and the budget shrinks by more than one — come back and re-enter the numbers.</p>
+  </section>
+
+  <section class="faq" aria-label="Frequently asked questions">
+    <h2>Frequently asked questions</h2>
+    <details open>
+      <summary>How is attendance percentage calculated?</summary>
+      <p>Attendance percentage is classes attended divided by classes held, times 100. Attended 18 of 20 classes is 90%. The math is exact — the only thing that varies between schools is the required percentage, which this calculator lets you set.</p>
+    </details>
+    <details>
+      <summary>How many classes can I miss and still meet the requirement?</summary>
+      <p>Divide classes attended by the required percentage (as a decimal), subtract the classes held so far, and round down: max misses = attended ÷ requirement − total held. Attended 18 of 20 at a 75% requirement gives 18 ÷ 0.75 − 20 = 4 more misses — 18 out of 24 is exactly 75%, while one more miss drops you to 72%.</p>
+    </details>
+    <details>
+      <summary>What if I am already below the attendance requirement?</summary>
+      <p>You need a streak of attended classes: classes to recover = (requirement × total held − attended) ÷ (1 − requirement), rounded up. Attended 12 of 20 at 75% needs 12 attended classes in a row, reaching 24 out of 32 = 75%. Note that a 100% requirement cannot be recovered once a class is missed — no streak brings attendance back to 100%.</p>
+    </details>
+    <details>
+      <summary>What does total classes in the course add?</summary>
+      <p>If you know how many classes the whole course has, the calculator projects the full course: your final attendance if you attend every remaining class, and how many of the remaining classes you can miss in total. Attended 18 of 20 in a 30-class course at 75% means attending everything ends at 93.33%, and you can miss 5 of the remaining 10 classes (23 out of 30 = 76.67%). It also tells you honestly when the requirement is already out of reach even with perfect attendance.</p>
+    </details>
+    <details>
+      <summary>Do excused absences count?</summary>
+      <p>That depends on your school, not on the math. This calculator counts every absence the same, because that is the conservative reading most syllabi use. Some schools excuse documented absences or count a late arrival as half an absence — check your syllabus or ask your teacher before treating an excused absence as free.</p>
+    </details>
+    <details>
+      <summary>How is this different from the grade average calculator?</summary>
+      <p>Both are percentages, but they answer different questions. The grade average calculator averages your scores across assignments; this one tracks presence across class meetings and compares it against a policy threshold. A 90% grade average says nothing about attendance, and 90% attendance says nothing about your grades — use each page for its own question.</p>
+    </details>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>GradeLab — a free study tool. Math is done locally in your browser; nothing is sent anywhere. <a href="../">Final exam calculator</a> · <a href="../gpa-calculator">GPA calculator</a> · <a href="../grade-average">Grade average calculator</a> · <a href="../weighted-grade">Weighted grade calculator</a> · <a href="../test-grade">Test grade calculator</a> · <a href="../weighted-gpa">Weighted GPA calculator</a> · <a href="../grade-curve">Grade curve calculator</a></p>
+</footer>
+
+<script src="../attendance.js"></script>
+</body>
+</html>
