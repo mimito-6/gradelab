@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Letter Grade Calculator — What Letter Grade Is 90%? | GradeLab</title>
+<meta name="description" content="Free letter grade calculator: enter a percentage and see your letter grade, GPA points, and how many points you need for the next grade. Plus/minus and straight scales, with the full scale table. Runs in your browser, no sign-up, no tracking.">
+<link rel="canonical" href="https://grade.mimito6.uk/letter-grade">
+<meta property="og:title" content="GradeLab — Letter Grade Calculator">
+<meta property="og:description" content="What letter grade is 88.4%? A B+, worth 3.33 GPA points — and 1.6 points short of an A-. Enter any percentage and see the letter, the points, and the distance to the next grade. Free, no sign-up.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://grade.mimito6.uk/letter-grade">
+<link rel="stylesheet" href="../styles.css">
+<style>
+.t-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 8px; }
+.t-grid .field { margin: 0; }
+.t-grid .field input { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 16px; background: #fff; }
+.t-summary { background: #f1f5f9; border-radius: 12px; padding: 16px 20px; margin: 16px 0; }
+.t-summary .big { font-size: 34px; font-weight: 700; margin: 4px 0; }
+.t-summary .meta { color: #475569; font-size: 14px; }
+.scale-toggle { display: flex; gap: 8px; margin: 0 0 8px; }
+.scale-toggle button { padding: 8px 14px; border: 1px solid #cbd5e1; border-radius: 8px; background: #fff; font-size: 14px; cursor: pointer; }
+.scale-toggle button.active { background: #0f172a; color: #fff; border-color: #0f172a; }
+.guide table { width: 100%; border-collapse: collapse; margin: 10px 0 16px; font-size: 14px; }
+.guide th, .guide td { text-align: left; padding: 6px 8px; border-bottom: 1px solid #e2e8f0; }
+.guide th { color: #475569; font-weight: 600; }
+.guide tr.current { background: #dbeafe; }
+.tools-nav { margin: 8px 0 0; font-size: 14px; }
+.tools-nav a { color: #475569; text-decoration: none; margin-right: 14px; }
+.tools-nav a:hover { text-decoration: underline; }
+@media (max-width: 520px) { .t-grid { grid-template-columns: 1fr; } }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "GradeLab — Letter Grade Calculator",
+  "url": "https://grade.mimito6.uk/letter-grade",
+  "applicationCategory": "EducationalApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free letter grade calculator: enter a percentage and see your letter grade, GPA points, and how many points you need for the next grade. Plus/minus and straight scales, with the full scale table."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What percentage is an A?",
+      "acceptedAnswer": { "@type": "Answer", "text": "On the plus/minus scale this calculator uses, an A starts at 93% (97% and up is an A+). On the straight scale, an A starts at 90%. Both scales are common in US schools, so the number that counts is the one in your syllabus — this tool shows both scales so you can check either." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is 89.9% a B+ or an A-?",
+      "acceptedAnswer": { "@type": "Answer", "text": "A B+. Cutoffs are inclusive at the bottom: 90.0% is an A-, anything below it is a B+. That 0.1-point cliff is real on this scale — 92.9% is an A- and 93.0% is an A. Some teachers round 89.9% up; this calculator does not round, so it shows the strict reading. If your teacher rounds, the rounded number is the one to enter." }
+    },
+    {
+      "@type": "Question",
+      "name": "How many GPA points is each letter grade worth?",
+      "acceptedAnswer": { "@type": "Answer", "text": "On the 4.0 plus/minus scale: A+ and A are both 4.0, A- is 3.67, B+ 3.33, B 3.0, B- 2.67, C+ 2.33, C 2.0, C- 1.67, D+ 1.33, D 1.0, D- 0.67, and F 0.0. There is no 4.3 — an A+ is worth the same 4.0 as an A. The straight scale is simpler: A 4.0, B 3.0, C 2.0, D 1.0, F 0.0." }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between the plus/minus and straight scales?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The plus/minus scale splits each letter into three bands (A-, A, A+), so the same percentage can map differently: 88.4% is a B+ (3.33 points) on the plus/minus scale but a B (3.0 points) on the straight scale. The plus/minus scale is the more common one in US colleges and is the default here; it is also the scale the GradeLab GPA calculator uses, so the two pages never disagree." }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does 92.9% show A- when my school says it is an A?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Because scales vary by school: some schools start A at 90%, some at 93%, some at 94%. This calculator uses the most common US cutoffs (A at 93% on plus/minus, 90% on straight) and lets you switch scales. If your school's cutoffs differ, the letter it shows is not your school's letter — check your syllabus and use the scale that matches it." }
+    },
+    {
+      "@type": "Question",
+      "name": "How is this different from the test grade calculator?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The test grade calculator starts from correct and total questions (42 out of 50) and gives you the percentage and the letter. This page starts from the percentage itself (84%) and adds what the test page does not: the GPA points, the full percentage range of your letter, and exactly how many points you need for the next letter up." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="brand"><span class="brand-mark">GL</span> GradeLab</div>
+  <p class="tagline">Free grade tools for students</p>
+  <nav class="tools-nav" aria-label="GradeLab tools">
+    <a href="../">Final Exam Calculator</a>
+    <a href="../gpa-calculator">GPA Calculator</a>
+    <a href="../grade-average">Grade Average Calculator</a>
+    <a href="../weighted-grade">Weighted Grade Calculator</a>
+    <a href="../test-grade">Test Grade Calculator</a>
+    <a href="../weighted-gpa">Weighted GPA Calculator</a>
+    <a href="../grade-curve">Grade Curve Calculator</a>
+    <a href="../attendance">Attendance Calculator</a>
+    <a href="./" aria-current="page">Letter Grade Calculator</a>
+  </nav>
+</header>
+
+<main>
+  <h1>Letter Grade Calculator — What Letter Grade Is My Percentage?</h1>
+  <p class="intro">You know the percentage — 88.4%, 92.9%, 59.9% — but what letter is that, how many GPA points is it worth, and how far are you from the next grade up? Enter a percentage and get the letter, the points, and the exact distance to the next letter. Everything runs in your browser; nothing is uploaded or tracked.</p>
+
+  <section aria-label="Letter grade calculator">
+    <div class="scale-toggle" role="group" aria-label="Grading scale">
+      <button type="button" data-scale="pm" class="active">Plus / minus scale</button>
+      <button type="button" data-scale="plain">Straight scale (A / B / C / D / F)</button>
+    </div>
+    <div class="t-grid">
+      <div class="field">
+        <label for="l-pct">Your percentage (%)</label>
+        <input id="l-pct" type="number" min="0" max="100" step="any" value="88.4" inputmode="decimal">
+      </div>
+    </div>
+
+    <div class="t-summary">
+      <div class="meta">Your letter grade</div>
+      <div class="big" id="l-letter">—</div>
+      <div class="meta" id="l-verdict">Enter a percentage between 0 and 100.</div>
+      <div class="meta" id="l-detail"></div>
+      <div class="meta" id="l-next"></div>
+    </div>
+    <p class="hint">Worked example: <strong>88.4%</strong> is a <strong>B+</strong>, worth <strong>3.33</strong> GPA points — and <strong>1.6 points</strong> short of an A- (90%). At <strong>92.9%</strong> you are an A- worth 3.67 points, just <strong>0.1 points</strong> from an A. And <strong>59.9%</strong> is an F, also just <strong>0.1 points</strong> from a D- — the cliff cuts both ways.</p>
+  </section>
+
+  <section class="guide" aria-label="Full grading scale">
+    <h2>The full scale — and how far each letter reaches</h2>
+    <p>Your row is highlighted. The table switches with the scale buttons above, and it is the same scale the GradeLab GPA calculator uses — a letter shown here always means the same points there.</p>
+    <div id="l-table"></div>
+  </section>
+
+  <section class="guide" aria-label="How the letter grade math works">
+    <h2>How the letter grade math works</h2>
+    <h3>1. Cutoffs are inclusive at the bottom</h3>
+    <p>Each letter covers a band that starts at its cutoff and runs up to just below the next cutoff: an A- is 90.0% to 92.9%, a B+ is 87.0% to 89.9%. That is why 90.0% is an A- and 89.9% is a B+ — there is no rounding in between. The same rule holds on the straight scale: 90.0% is an A, 89.9% is a B.</p>
+    <h3>2. The 0.1-point cliff</h3>
+    <p>A tenth of a point can change the letter: 92.9% is an A- (3.67 points) and 93.0% is an A (4.0 points); 59.9% is an F (0 points) and 60.0% is a D- (0.67 points). This calculator shows the strict reading and does not round your percentage — if your teacher rounds 89.9% up to 90%, enter the rounded 90% and the letter follows.</p>
+    <h3>3. Points are not proportional to the percentage</h3>
+    <p>A 3-point gap in percentage is not worth the same everywhere: going from 90% to 93% (A- to A) gains 0.33 GPA points, but going from 87% to 90% (B+ to A-) gains 0.34 — and the jump from 59.9% to 60% (F to D-) gains 0.67 points for a tenth of a percent. The letter bands, not the raw percentage, decide the points, which is why two students 0.1 points apart can be a third of a GPA point apart.</p>
+    <h3>4. A+ is worth the same as A</h3>
+    <p>On the 4.0 scale, A+ and A are both worth 4.0 points — there is no 4.3. An A+ is a distinction on the transcript, not extra GPA. Some schools run a 4.3 or 5.0 weighted scale where an A+ does count for more; this tool uses the standard unweighted 4.0 scale, the same one as the GradeLab GPA calculator.</p>
+    <h3>What this calculator cannot do</h3>
+    <p>It cannot know your school's scale. The cutoffs here are the most common US ones (plus/minus: A at 93%, A+ at 97%; straight: A at 90%), but schools vary — some start A at 90% even with plus/minus, some at 94%. If your syllabus uses different cutoffs, the letter here is not your letter. Use the scale that matches your school, and when in doubt ask your teacher, not the calculator.</p>
+  </section>
+
+  <section class="faq" aria-label="Frequently asked questions">
+    <h2>Frequently asked questions</h2>
+    <details open>
+      <summary>What percentage is an A?</summary>
+      <p>On the plus/minus scale this calculator uses, an A starts at 93% (97% and up is an A+). On the straight scale, an A starts at 90%. Both scales are common in US schools, so the number that counts is the one in your syllabus — this tool shows both scales so you can check either.</p>
+    </details>
+    <details>
+      <summary>Is 89.9% a B+ or an A-?</summary>
+      <p>A B+. Cutoffs are inclusive at the bottom: 90.0% is an A-, anything below it is a B+. That 0.1-point cliff is real on this scale — 92.9% is an A- and 93.0% is an A. Some teachers round 89.9% up; this calculator does not round, so it shows the strict reading. If your teacher rounds, the rounded number is the one to enter.</p>
+    </details>
+    <details>
+      <summary>How many GPA points is each letter grade worth?</summary>
+      <p>On the 4.0 plus/minus scale: A+ and A are both 4.0, A- is 3.67, B+ 3.33, B 3.0, B- 2.67, C+ 2.33, C 2.0, C- 1.67, D+ 1.33, D 1.0, D- 0.67, and F 0.0. There is no 4.3 — an A+ is worth the same 4.0 as an A. The straight scale is simpler: A 4.0, B 3.0, C 2.0, D 1.0, F 0.0.</p>
+    </details>
+    <details>
+      <summary>What is the difference between the plus/minus and straight scales?</summary>
+      <p>The plus/minus scale splits each letter into three bands (A-, A, A+), so the same percentage can map differently: 88.4% is a B+ (3.33 points) on the plus/minus scale but a B (3.0 points) on the straight scale. The plus/minus scale is the more common one in US colleges and is the default here; it is also the scale the GradeLab GPA calculator uses, so the two pages never disagree.</p>
+    </details>
+    <details>
+      <summary>Why does 92.9% show A- when my school says it is an A?</summary>
+      <p>Because scales vary by school: some schools start A at 90%, some at 93%, some at 94%. This calculator uses the most common US cutoffs (A at 93% on plus/minus, 90% on straight) and lets you switch scales. If your school's cutoffs differ, the letter it shows is not your school's letter — check your syllabus and use the scale that matches it.</p>
+    </details>
+    <details>
+      <summary>How is this different from the test grade calculator?</summary>
+      <p>The test grade calculator starts from correct and total questions (42 out of 50) and gives you the percentage and the letter. This page starts from the percentage itself (84%) and adds what the test page does not: the GPA points, the full percentage range of your letter, and exactly how many points you need for the next letter up.</p>
+    </details>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>GradeLab — a free study tool. Math is done locally in your browser; nothing is sent anywhere. <a href="../">Final exam calculator</a> · <a href="../gpa-calculator">GPA calculator</a> · <a href="../grade-average">Grade average calculator</a> · <a href="../weighted-grade">Weighted grade calculator</a> · <a href="../test-grade">Test grade calculator</a> · <a href="../weighted-gpa">Weighted GPA calculator</a> · <a href="../grade-curve">Grade curve calculator</a> · <a href="../attendance">Attendance calculator</a></p>
+</footer>
+
+<script src="../lettergrade.js"></script>
+</body>
+</html>
