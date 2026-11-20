@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GPA Planner Calculator — What Semester GPA Do I Need to Reach My Target? | GradeLab</title>
+<meta name="description" content="Free GPA planner calculator: enter your current cumulative GPA, earned credits, target GPA, and planned credits — see exactly what semester GPA you need next term, or how many straight-A credits it takes. Runs in your browser, no sign-up, no tracking.">
+<link rel="canonical" href="https://grade.mimito6.uk/gpa-planner">
+<meta property="og:title" content="GradeLab — GPA Planner Calculator">
+<meta property="og:description" content="At 3.00 over 30 credits, a 3.30 target needs a 3.90 semester over 15 credits — nearly straight A's. Enter your numbers and see what your target really costs. Free, no sign-up.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://grade.mimito6.uk/gpa-planner">
+<link rel="stylesheet" href="../styles.css">
+<style>
+.t-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 8px; }
+.t-grid .field { margin: 0; }
+.t-grid .field input { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 16px; background: #fff; }
+.t-summary { background: #f1f5f9; border-radius: 12px; padding: 16px 20px; margin: 16px 0; }
+.t-summary .big { font-size: 34px; font-weight: 700; margin: 4px 0; }
+.t-summary .meta { color: #475569; font-size: 14px; }
+.guide table { width: 100%; border-collapse: collapse; margin: 10px 0 16px; font-size: 14px; }
+.guide th, .guide td { text-align: left; padding: 6px 8px; border-bottom: 1px solid #e2e8f0; }
+.guide th { color: #475569; font-weight: 600; }
+.guide tr.current { background: #dbeafe; }
+.tools-nav { margin: 8px 0 0; font-size: 14px; }
+.tools-nav a { color: #475569; text-decoration: none; margin-right: 14px; }
+.tools-nav a:hover { text-decoration: underline; }
+@media (max-width: 520px) { .t-grid { grid-template-columns: 1fr; } }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "GradeLab — GPA Planner Calculator",
+  "url": "https://grade.mimito6.uk/gpa-planner",
+  "applicationCategory": "EducationalApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free GPA planner calculator: enter your current cumulative GPA, earned credits, target GPA, and planned credits — see exactly what semester GPA you need next term, or how many straight-A credits it takes when one semester is not enough."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What semester GPA do I need to raise my cumulative GPA to 3.5?",
+      "acceptedAnswer": { "@type": "Answer", "text": "It depends on how many credits you already have and how many you take next semester. The formula is (Target × Total Credits − Current GPA × Earned Credits) ÷ Planned Credits. For example, at 3.20 over 60 credits, reaching 3.50 with 15 credits next semester needs a 4.70 semester GPA — above the 4.0 maximum, so it cannot be done in one term. Enter your numbers in the calculator above for the exact answer." }
+    },
+    {
+      "@type": "Question",
+      "name": "How is the required semester GPA calculated?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Your cumulative GPA is total quality points divided by total credits. To land exactly on a target after next semester: Required = (Target × (Earned + Planned) − Current GPA × Earned) ÷ Planned. The numerator is the quality points you still need; the denominator is the credits you have left to earn them in." }
+    },
+    {
+      "@type": "Question",
+      "name": "What does it mean if the calculator says I need more than a 4.0?",
+      "acceptedAnswer": { "@type": "Answer", "text": "It means the target is mathematically out of reach in a single semester — even straight A's would not be enough, because your earned credits anchor the average. The calculator then shows how many straight-A credits it would take instead: at 3.20 over 60 credits, reaching 3.50 takes about 36 credits at 4.0. The honest options are a lower target or a longer runway." }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I ever reach a 4.0 cumulative GPA if I already have a B?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No — not exactly. Once any grade below A is on your record, your cumulative GPA can approach 4.0 but never reach it, no matter how many straight-A credits you add. A 3.99 is reachable in principle; a perfect 4.00 is not. The calculator says so plainly instead of rounding up to 4.0." }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does taking more credits next semester make the target easier?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Because each new credit is a fresh chance to pull the average up: the required GPA is spread over more credits. At 3.00 over 30 credits, a 3.30 target needs a 3.90 over 15 credits, but only a 3.60 over 30 credits. The catch is that more credits also means more work — and a low semester GPA over many credits drags the average down just as fast." }
+    },
+    {
+      "@type": "Question",
+      "name": "How is this different from the GPA calculator?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The GPA calculator works forward: you enter next semester's courses and it predicts your new cumulative GPA. This planner works backward: you enter the target cumulative GPA and it tells you what semester GPA you need to get there — or, when one semester is not enough, how many straight-A credits the climb takes." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="brand"><span class="brand-mark">GL</span> GradeLab</div>
+  <p class="tagline">Free grade tools for students</p>
+  <nav class="tools-nav" aria-label="GradeLab tools">
+    <a href="../">Final Exam Calculator</a>
+    <a href="../gpa-calculator">GPA Calculator</a>
+    <a href="../grade-average">Grade Average Calculator</a>
+    <a href="../weighted-grade">Weighted Grade Calculator</a>
+    <a href="../test-grade">Test Grade Calculator</a>
+    <a href="../weighted-gpa">Weighted GPA Calculator</a>
+    <a href="../grade-curve">Grade Curve Calculator</a>
+    <a href="../attendance">Attendance Calculator</a>
+    <a href="../letter-grade">Letter Grade Calculator</a>
+    <a href="./" aria-current="page">GPA Planner Calculator</a>
+  </nav>
+</header>
+
+<main>
+  <h1>GPA Planner Calculator — What Semester GPA Do I Need to Reach My Target?</h1>
+  <p class="intro">You know where your GPA stands and where you want it to be — but what does next semester actually have to look like? Enter your current cumulative GPA, the credits you have already earned, your target, and how many credits you plan to take. GradeLab tells you the exact semester GPA you need — or, when one semester is not enough, how many straight-A credits the climb takes. Everything runs in your browser; nothing is uploaded or tracked.</p>
+
+  <section aria-label="GPA planner calculator">
+    <div class="t-grid">
+      <div class="field">
+        <label for="gp-current">Current cumulative GPA (0–4.0)</label>
+        <input id="gp-current" type="number" min="0" max="4" step="any" value="3.00" inputmode="decimal">
+      </div>
+      <div class="field">
+        <label for="gp-earned">Credits already earned</label>
+        <input id="gp-earned" type="number" min="1" step="any" value="30" inputmode="decimal">
+      </div>
+      <div class="field">
+        <label for="gp-target">Target cumulative GPA (0–4.0)</label>
+        <input id="gp-target" type="number" min="0" max="4" step="any" value="3.30" inputmode="decimal">
+      </div>
+      <div class="field">
+        <label for="gp-planned">Credits planned next semester</label>
+        <input id="gp-planned" type="number" min="1" step="any" value="15" inputmode="decimal">
+      </div>
+    </div>
+
+    <div class="t-summary">
+      <div class="meta">Semester GPA you need next term</div>
+      <div class="big" id="gp-required">—</div>
+      <div class="meta" id="gp-verdict">Enter your current GPA (0–4), earned credits, target GPA (0–4), and planned credits.</div>
+      <div class="meta" id="gp-detail"></div>
+      <div class="meta" id="gp-extra"></div>
+    </div>
+    <p class="hint">Worked example: at <strong>3.00</strong> over <strong>30 credits</strong>, a <strong>3.30</strong> target with <strong>15 credits</strong> next semester needs a <strong>3.90</strong> semester — better than an A- average, nearly straight A's. The same target over <strong>30 credits</strong> instead needs only a <strong>3.60</strong>. And at <strong>3.20</strong> over <strong>60 credits</strong>, a <strong>3.50</strong> target needs a <strong>4.70</strong> — impossible in one term; it takes about <strong>36 credits at 4.0</strong>.</p>
+  </section>
+
+  <section class="guide" aria-label="What each semester GPA would do">
+    <h2>What each semester GPA would do to your cumulative</h2>
+    <p>Rows that reach your target are highlighted. A 4.0 semester is the best any single term can do — if even that row stays below your target, the goal needs more than one semester.</p>
+    <div id="gp-table"></div>
+  </section>
+
+  <section class="guide" aria-label="How the GPA planner math works">
+    <h2>How the GPA planner math works</h2>
+    <h3>1. Your cumulative GPA is a weighted average, not a simple one</h3>
+    <p>Each credit counts equally, so your cumulative GPA is total quality points divided by total credits: (current GPA × earned credits + next semester GPA × planned credits) ÷ (earned + planned). Solving that for the next semester GPA gives the planner's formula: required = (target × (earned + planned) − current GPA × earned) ÷ planned. The numerator is the quality points you still need; the denominator is the credits you have left to earn them in.</p>
+    <h3>2. Old credits anchor the average</h3>
+    <p>The more credits you have already earned, the harder the average is to move. At 3.20 over 60 credits, a 3.50 target needs a 4.70 over 15 credits — above the 4.0 maximum — because 60 credits of history outweigh 15 credits of future. The same 3.20 over only 15 credits would need a 3.80 over 15. This is why raising a GPA gets harder every semester: the anchor only gets heavier.</p>
+    <h3>3. More planned credits make the target easier — and riskier</h3>
+    <p>Each extra credit is another chance to pull the average up: at 3.00 over 30 credits, a 3.30 target needs a 3.90 over 15 credits but only a 3.60 over 30. The catch runs both ways — a weak semester over many credits drags the average down just as fast. Plan the load you can actually sustain, not the load that makes the math look easy.</p>
+    <h3>4. A 4.0 cumulative is unreachable once a B is on the record</h3>
+    <p>Once any grade below A is in your history, your cumulative GPA can approach 4.0 but never reach it — no finite number of straight-A credits closes the gap, because the average of numbers below 4.0 and exactly 4.0 is always below 4.0. A 3.99 is reachable in principle; a perfect 4.00 is not. This calculator says so plainly instead of rounding up.</p>
+    <h3>What this calculator cannot do</h3>
+    <p>It cannot change your past grades or your school's scale. It uses the standard unweighted 4.0 scale — the same one as the GradeLab GPA calculator and letter grade calculator — so a required 3.67 means an A- average on that scale. If your school weights honors or AP courses differently, the target to enter is the one on your school's scale, and the weighted GPA calculator is the page that handles those extra points.</p>
+  </section>
+
+  <section class="faq" aria-label="Frequently asked questions">
+    <h2>Frequently asked questions</h2>
+    <details open>
+      <summary>What semester GPA do I need to raise my cumulative GPA to 3.5?</summary>
+      <p>It depends on how many credits you already have and how many you take next semester. The formula is <strong>(Target × Total Credits − Current GPA × Earned Credits) ÷ Planned Credits</strong>. For example, at 3.20 over 60 credits, reaching 3.50 with 15 credits next semester needs a <strong>4.70</strong> semester GPA — above the 4.0 maximum, so it cannot be done in one term. Enter your numbers in the calculator above for the exact answer.</p>
+    </details>
+    <details>
+      <summary>How is the required semester GPA calculated?</summary>
+      <p>Your cumulative GPA is total quality points divided by total credits. To land exactly on a target after next semester: <strong>Required = (Target × (Earned + Planned) − Current GPA × Earned) ÷ Planned</strong>. The numerator is the quality points you still need; the denominator is the credits you have left to earn them in.</p>
+    </details>
+    <details>
+      <summary>What does it mean if the calculator says I need more than a 4.0?</summary>
+      <p>It means the target is mathematically out of reach in a single semester — even straight A's would not be enough, because your earned credits anchor the average. The calculator then shows how many straight-A credits it would take instead: at 3.20 over 60 credits, reaching 3.50 takes about <strong>36 credits at 4.0</strong>. The honest options are a lower target or a longer runway.</p>
+    </details>
+    <details>
+      <summary>Can I ever reach a 4.0 cumulative GPA if I already have a B?</summary>
+      <p>No — not exactly. Once any grade below A is on your record, your cumulative GPA can approach 4.0 but never reach it, no matter how many straight-A credits you add. A 3.99 is reachable in principle; a perfect 4.00 is not. The calculator says so plainly instead of rounding up to 4.0.</p>
+    </details>
+    <details>
+      <summary>Why does taking more credits next semester make the target easier?</summary>
+      <p>Because each new credit is a fresh chance to pull the average up: the required GPA is spread over more credits. At 3.00 over 30 credits, a 3.30 target needs a 3.90 over 15 credits, but only a 3.60 over 30 credits. The catch is that more credits also means more work — and a low semester GPA over many credits drags the average down just as fast.</p>
+    </details>
+    <details>
+      <summary>How is this different from the GPA calculator?</summary>
+      <p>The GPA calculator works forward: you enter next semester's courses and it predicts your new cumulative GPA. This planner works backward: you enter the target cumulative GPA and it tells you what semester GPA you need to get there — or, when one semester is not enough, how many straight-A credits the climb takes.</p>
+    </details>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>GradeLab — a free study tool. Math is done locally in your browser; nothing is sent anywhere. <a href="../">Final exam calculator</a> · <a href="../gpa-calculator">GPA calculator</a> · <a href="../grade-average">Grade average calculator</a> · <a href="../weighted-grade">Weighted grade calculator</a> · <a href="../test-grade">Test grade calculator</a> · <a href="../weighted-gpa">Weighted GPA calculator</a> · <a href="../grade-curve">Grade curve calculator</a> · <a href="../attendance">Attendance calculator</a> · <a href="../letter-grade">Letter grade calculator</a></p>
+</footer>
+
+<script src="../planner.js"></script>
+</body>
+</html>
