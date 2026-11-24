@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GPA to Percentage Converter — What Percentage Is a 3.67 GPA? | GradeLab</title>
+<meta name="description" content="Free GPA to percentage converter: enter a GPA on the 4.0 scale and see the estimated percentage range and letter grade. Plus/minus and straight scales, with the full scale table. An estimate, not an exact conversion — your school's official scale is the one that counts.">
+<link rel="canonical" href="https://grade.mimito6.uk/gpa-to-percentage">
+<meta property="og:title" content="GradeLab — GPA to Percentage Converter">
+<meta property="og:description" content="What percentage is a 3.67 GPA? An A-, about 90–92.9%. Enter any GPA and see the estimated percentage range and letter grade. Free, no sign-up.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://grade.mimito6.uk/gpa-to-percentage">
+<link rel="stylesheet" href="../styles.css">
+<style>
+.t-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 8px; }
+.t-grid .field { margin: 0; }
+.t-grid .field input { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 16px; background: #fff; }
+.t-summary { background: #f1f5f9; border-radius: 12px; padding: 16px 20px; margin: 16px 0; }
+.t-summary .big { font-size: 34px; font-weight: 700; margin: 4px 0; }
+.t-summary .meta { color: #475569; font-size: 14px; }
+.scale-toggle { display: flex; gap: 8px; margin: 0 0 8px; }
+.scale-toggle button { padding: 8px 14px; border: 1px solid #cbd5e1; border-radius: 8px; background: #fff; font-size: 14px; cursor: pointer; }
+.scale-toggle button.active { background: #0f172a; color: #fff; border-color: #0f172a; }
+.guide table { width: 100%; border-collapse: collapse; margin: 10px 0 16px; font-size: 14px; }
+.guide th, .guide td { text-align: left; padding: 6px 8px; border-bottom: 1px solid #e2e8f0; }
+.guide th { color: #475569; font-weight: 600; }
+.guide tr.current { background: #dbeafe; }
+.tools-nav { margin: 8px 0 0; font-size: 14px; }
+.tools-nav a { color: #475569; text-decoration: none; margin-right: 14px; }
+.tools-nav a:hover { text-decoration: underline; }
+@media (max-width: 520px) { .t-grid { grid-template-columns: 1fr; } }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "GradeLab — GPA to Percentage Converter",
+  "url": "https://grade.mimito6.uk/gpa-to-percentage",
+  "applicationCategory": "EducationalApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free GPA to percentage converter: enter a GPA on the 4.0 scale and see the estimated percentage range and letter grade. Plus/minus and straight scales, with the full scale table."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I convert a GPA to a percentage?",
+      "acceptedAnswer": { "@type": "Answer", "text": "There is no universal formula: a GPA is an average of letter grades, and every school maps letters to percentages differently. This converter reads GradeLab's own scale table backwards — a 3.67 GPA is the A- rung, which covers 90–92.9% — so the percentage it shows is a range estimate, not an exact conversion. For anything official, use your school's conversion." }
+    },
+    {
+      "@type": "Question",
+      "name": "What percentage is a 3.67 GPA?",
+      "acceptedAnswer": { "@type": "Answer", "text": "On the plus/minus scale, 3.67 is an A-, which covers 90–92.9%. On the straight scale there is no 3.67 rung at all — 3.67 falls between B (3.0, 80–89.9%) and A (4.0, 90–100%), so the estimate is roughly 80–100%. The scale you use changes the answer, so check which one your school uses." }
+    },
+    {
+      "@type": "Question",
+      "name": "What percentage is a 4.0 GPA?",
+      "acceptedAnswer": { "@type": "Answer", "text": "On the plus/minus scale, a 4.0 is an A or an A+ — both are worth 4.0 points, so a 4.0 cannot tell them apart — and the combined band is 93–100%. On the straight scale, a 4.0 is an A, 90–100%. Either way, a 4.0 means the top of the scale; the exact percentage behind it is not recoverable from the GPA alone." }
+    },
+    {
+      "@type": "Question",
+      "name": "My GPA is 3.85 — what percentage is that?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No single letter is worth 3.85 points: it sits between A- (3.67, 90–92.9%) and A (4.0, 93–96.9%), so the honest answer is the span of the two bands, roughly 90–96.9%. A GPA between two rungs usually comes from averaging several courses, so the percentage behind it is a range, not one number — this converter says so instead of inventing a precise figure." }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does the straight scale give a different percentage for the same GPA?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Because the scales have different rungs: a 3.5 GPA is between B+ (3.33, 87–89.9%) and A- (3.67, 90–92.9%) on the plus/minus scale, roughly 87–92.9%, but between B (3.0, 80–89.9%) and A (4.0, 90–100%) on the straight scale, roughly 80–100%. The wider the gap between rungs, the wider the estimate. Use the scale your school actually uses." }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use this percentage on an application or transcript?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No — not as an official figure. This converter is an estimate built from one common US scale, and schools convert GPAs differently (some use 4.3 scales, some weight differently, some do not convert at all). For applications, report the GPA itself and let the institution convert it, or use your school's official conversion if it publishes one." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="brand"><span class="brand-mark">GL</span> GradeLab</div>
+  <p class="tagline">Free grade tools for students</p>
+  <nav class="tools-nav" aria-label="GradeLab tools">
+    <a href="../">Final Exam Calculator</a>
+    <a href="../gpa-calculator">GPA Calculator</a>
+    <a href="../grade-average">Grade Average Calculator</a>
+    <a href="../weighted-grade">Weighted Grade Calculator</a>
+    <a href="../test-grade">Test Grade Calculator</a>
+    <a href="../weighted-gpa">Weighted GPA Calculator</a>
+    <a href="../grade-curve">Grade Curve Calculator</a>
+    <a href="../attendance">Attendance Calculator</a>
+    <a href="../letter-grade">Letter Grade Calculator</a>
+    <a href="./" aria-current="page">GPA to Percentage Converter</a>
+    <a href="../gpa-planner">GPA Planner Calculator</a>
+  </nav>
+</header>
+
+<main>
+  <h1>GPA to Percentage Converter — What Percentage Is My GPA?</h1>
+  <p class="intro">You know the GPA — 3.67, 3.85, 2.5 — but what percentage is that, and what letter grade does it mean? Enter a GPA on the 4.0 scale and get the estimated percentage range and the letter. One honest warning up front: there is no universal GPA-to-percentage formula, because schools use different scales. This tool reads GradeLab's own scale table backwards, so the percentage is a <strong>range estimate</strong>, never an exact conversion — and when your GPA falls between two rungs, it says so instead of inventing a precise number. Everything runs in your browser; nothing is uploaded or tracked.</p>
+
+  <section aria-label="GPA to percentage converter">
+    <div class="scale-toggle" role="group" aria-label="Grading scale">
+      <button type="button" data-scale="pm" class="active">Plus / minus scale</button>
+      <button type="button" data-scale="plain">Straight scale (A / B / C / D / F)</button>
+    </div>
+    <div class="t-grid">
+      <div class="field">
+        <label for="g-gpa">Your GPA (0 – 4.0)</label>
+        <input id="g-gpa" type="number" min="0" max="4" step="0.01" value="3.67" inputmode="decimal">
+      </div>
+    </div>
+
+    <div class="t-summary">
+      <div class="meta">Your estimated letter grade</div>
+      <div class="big" id="g-letter">—</div>
+      <div class="meta" id="g-verdict">Enter a GPA between 0 and 4.0.</div>
+      <div class="meta" id="g-detail"></div>
+      <div class="meta" id="g-range"></div>
+    </div>
+    <p class="hint">Worked example: <strong>3.67</strong> is an <strong>A−</strong>, about <strong>90–92.9%</strong>. But <strong>3.85</strong> has no single letter — it sits between A− (3.67, 90–92.9%) and A (4.0, 93–96.9%), so the estimate is roughly <strong>90–96.9%</strong>. And a <strong>4.0</strong> is an <strong>A / A+</strong>, <strong>93–100%</strong> — the GPA cannot tell the two apart, because both are worth 4.0 points.</p>
+  </section>
+
+  <section class="guide" aria-label="Full grading scale">
+    <h2>The full scale — GPA points, letter, and percentage range</h2>
+    <p>Your row (or rows) are highlighted. The table switches with the scale buttons above, and it is the same scale the GradeLab GPA calculator and letter grade calculator use — a GPA shown here always means the same letter and band there.</p>
+    <div id="g-table"></div>
+  </section>
+
+  <section class="guide" aria-label="How the GPA to percentage math works">
+    <h2>How the GPA to percentage math works</h2>
+    <h3>1. It is a reverse lookup, not a formula</h3>
+    <p>Going from percentage to letter is exact on one scale: 90% is an A−, worth 3.67 points. Going the other way just reads that table backwards — 3.67 points means the A− band, 90–92.9%. There is no multiplication that turns 3.67 into a single percentage, because the GPA already threw away the detail: many different percentages (90%, 91.5%, 92.9%) all collapse to the same 3.67. The honest output is the whole band.</p>
+    <h3>2. A GPA between two rungs has no letter</h3>
+    <p>Only 12 point values exist on the plus/minus scale (4.0, 3.67, 3.33, 3.0, 2.67, 2.33, 2.0, 1.67, 1.33, 1.0, 0.67, 0) — a 3.85 or a 3.5 is none of them. A 3.5 sits between B+ (3.33, 87–89.9%) and A− (3.67, 90–92.9%), so the estimate is the span of both bands, roughly 87–92.9%. A 2.85 sits between B− (2.67, 80–82.9%) and B (3.0, 83–86.9%), roughly 80–86.9%. A 0.35 sits between F (0, 0–59.9%) and D− (0.67, 60–62.9%), roughly 0–62.9%. The wider the gap between rungs, the wider the estimate — on the straight scale a 3.5 spans the whole 80–100%.</p>
+    <h3>3. A 4.0 cannot tell A+ from A</h3>
+    <p>On the 4.0 scale, A+ and A are both worth 4.0 points — there is no 4.3. So a 4.0 GPA could be an A (93–96.9%) or an A+ (97–100%), and the combined estimate is 93–100%. The same is true at the bottom: a 0 is an F, 0–59.9%, and nothing in the GPA says whether the percentage behind it was 59% or 12%.</p>
+    <h3>4. The scale you pick changes the answer</h3>
+    <p>A 3.5 GPA is roughly 87–92.9% on the plus/minus scale but roughly 80–100% on the straight scale, because the straight scale has only 5 rungs and the gaps between them are huge. Neither answer is wrong — they are answers on different scales. If your school uses plus/minus grading, use that; if it uses straight letters, use the other. And if your school uses a different scale entirely (a 4.3 scale, a 10-point scale, a 100-point GPA), this converter's bands are not your school's bands.</p>
+    <h3>What this converter cannot do</h3>
+    <p>It cannot recover the exact percentage behind a GPA, and it cannot know your school's scale. The bands here are the most common US ones (plus/minus: A at 93%, A+ at 97%; straight: A at 90%), matching the GradeLab GPA calculator and letter grade calculator exactly. For transcripts and applications, report the GPA itself and let the institution convert it — or use your school's official conversion if it publishes one.</p>
+  </section>
+
+  <section class="faq" aria-label="Frequently asked questions">
+    <h2>Frequently asked questions</h2>
+    <details open>
+      <summary>How do I convert a GPA to a percentage?</summary>
+      <p>There is no universal formula: a GPA is an average of letter grades, and every school maps letters to percentages differently. This converter reads GradeLab's own scale table backwards — a 3.67 GPA is the A− rung, which covers 90–92.9% — so the percentage it shows is a range estimate, not an exact conversion. For anything official, use your school's conversion.</p>
+    </details>
+    <details>
+      <summary>What percentage is a 3.67 GPA?</summary>
+      <p>On the plus/minus scale, 3.67 is an A−, which covers 90–92.9%. On the straight scale there is no 3.67 rung at all — 3.67 falls between B (3.0, 80–89.9%) and A (4.0, 90–100%), so the estimate is roughly 80–100%. The scale you use changes the answer, so check which one your school uses.</p>
+    </details>
+    <details>
+      <summary>What percentage is a 4.0 GPA?</summary>
+      <p>On the plus/minus scale, a 4.0 is an A or an A+ — both are worth 4.0 points, so a 4.0 cannot tell them apart — and the combined band is 93–100%. On the straight scale, a 4.0 is an A, 90–100%. Either way, a 4.0 means the top of the scale; the exact percentage behind it is not recoverable from the GPA alone.</p>
+    </details>
+    <details>
+      <summary>My GPA is 3.85 — what percentage is that?</summary>
+      <p>No single letter is worth 3.85 points: it sits between A− (3.67, 90–92.9%) and A (4.0, 93–96.9%), so the honest answer is the span of the two bands, roughly 90–96.9%. A GPA between two rungs usually comes from averaging several courses, so the percentage behind it is a range, not one number — this converter says so instead of inventing a precise figure.</p>
+    </details>
+    <details>
+      <summary>Why does the straight scale give a different percentage for the same GPA?</summary>
+      <p>Because the scales have different rungs: a 3.5 GPA is between B+ (3.33, 87–89.9%) and A− (3.67, 90–92.9%) on the plus/minus scale, roughly 87–92.9%, but between B (3.0, 80–89.9%) and A (4.0, 90–100%) on the straight scale, roughly 80–100%. The wider the gap between rungs, the wider the estimate. Use the scale your school actually uses.</p>
+    </details>
+    <details>
+      <summary>Can I use this percentage on an application or transcript?</summary>
+      <p>No — not as an official figure. This converter is an estimate built from one common US scale, and schools convert GPAs differently (some use 4.3 scales, some weight differently, some do not convert at all). For applications, report the GPA itself and let the institution convert it, or use your school's official conversion if it publishes one.</p>
+    </details>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>GradeLab — a free study tool. Math is done locally in your browser; nothing is sent anywhere. <a href="../">Final exam calculator</a> · <a href="../gpa-calculator">GPA calculator</a> · <a href="../grade-average">Grade average calculator</a> · <a href="../weighted-grade">Weighted grade calculator</a> · <a href="../test-grade">Test grade calculator</a> · <a href="../weighted-gpa">Weighted GPA calculator</a> · <a href="../grade-curve">Grade curve calculator</a> · <a href="../attendance">Attendance calculator</a> · <a href="../letter-grade">Letter grade calculator</a> · <a href="../gpa-planner">GPA planner calculator</a></p>
+</footer>
+
+<script src="../gpa2pct.js"></script>
+</body>
+</html>
