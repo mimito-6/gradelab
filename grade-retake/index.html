@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grade Retake Calculator — How Much Will Retaking a Class Raise My GPA? | GradeLab</title>
+<meta name="description" content="Free grade retake calculator: enter your current GPA, earned credits, and the old and new grades — see exactly how much retaking a class raises (or lowers) your cumulative GPA, under grade-replacement or grade-averaging policy. Runs in your browser, no sign-up, no tracking.">
+<link rel="canonical" href="https://grade.mimito6.uk/grade-retake">
+<meta property="og:title" content="GradeLab — Grade Retake Calculator">
+<meta property="og:description" content="At 3.00 over 30 credits, retaking a 3-credit C and earning an A lifts you to 3.20 — a +0.20 gain. Enter your numbers and see what your retake is really worth. Free, no sign-up.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://grade.mimito6.uk/grade-retake">
+<link rel="stylesheet" href="../styles.css">
+<style>
+.t-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 8px; }
+.t-grid .field { margin: 0; }
+.t-grid .field input, .t-grid .field select { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 16px; background: #fff; }
+.t-summary { background: #f1f5f9; border-radius: 12px; padding: 16px 20px; margin: 16px 0; }
+.t-summary .big { font-size: 34px; font-weight: 700; margin: 4px 0; }
+.t-summary .meta { color: #475569; font-size: 14px; }
+.guide table { width: 100%; border-collapse: collapse; margin: 10px 0 16px; font-size: 14px; }
+.guide th, .guide td { text-align: left; padding: 6px 8px; border-bottom: 1px solid #e2e8f0; }
+.guide th { color: #475569; font-weight: 600; }
+.guide tr.current { background: #dbeafe; }
+.tools-nav { margin: 8px 0 0; font-size: 14px; }
+.tools-nav a { color: #475569; text-decoration: none; margin-right: 14px; }
+.tools-nav a:hover { text-decoration: underline; }
+@media (max-width: 520px) { .t-grid { grid-template-columns: 1fr; } }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "GradeLab — Grade Retake Calculator",
+  "url": "https://grade.mimito6.uk/grade-retake",
+  "applicationCategory": "EducationalApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free grade retake calculator: enter your current GPA, earned credits, and the old and new grades — see exactly how much retaking a class raises (or lowers) your cumulative GPA, under grade-replacement or grade-averaging policy."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How much will retaking a class raise my GPA?",
+      "acceptedAnswer": { "@type": "Answer", "text": "It depends on your current GPA, how many credits you have earned, and how many credits the course is worth. Under grade replacement: New GPA = (Current GPA × Earned Credits − Old Grade Points × Course Credits + New Grade Points × Course Credits) ÷ Earned Credits. For example, at 3.00 over 30 credits, retaking a 3-credit C and earning an A gives (90 − 6 + 12) ÷ 30 = 3.20 — a +0.20 lift. Enter your numbers in the calculator above for the exact answer." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is it worth retaking a C?",
+      "acceptedAnswer": { "@type": "Answer", "text": "It depends on how many credits you already have. The same retake — a 3-credit C to an A — is worth +0.20 at 3.00 over 30 credits, but only +0.07 over 90 credits, because each new grade is a smaller slice of a bigger average. Retaking a low grade in a high-credit course early in your degree pays off the most; retaking one course late in a long transcript barely moves the number." }
+    },
+    {
+      "@type": "Question",
+      "name": "What if my school averages both attempts instead of replacing the grade?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Then the same retake is worth much less. At 3.00 over 30 credits, retaking a 3-credit C and earning an A under averaging gives (90 + 12) ÷ 33 = 3.09 — only +0.09, less than half the +0.20 you get under replacement — because the old grade stays in the average and the credit total grows. Use the policy switch on the calculator to see both numbers, and check your school's catalog before you decide: the policy matters more than the grade." }
+    },
+    {
+      "@type": "Question",
+      "name": "Can retaking a class lower my GPA?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes — under grade replacement, a worse second grade replaces the old one outright. At 3.00 over 30 credits, retaking a 3-credit B and earning a C gives (90 − 9 + 6) ÷ 30 = 2.90, a −0.10 drop. Only retake a course you are confident you can beat; the calculator shows the outcome for every possible new grade so you can see the downside before you commit." }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the retaken course add credits to my total?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Under grade replacement, no — you already earned those credits once, so the total stays the same and only the quality points change. Under grade averaging, yes — both attempts count, so the total grows by the course credits. That is why the same retake moves your GPA less under averaging: the improvement is spread over more credits." }
+    },
+    {
+      "@type": "Question",
+      "name": "How is this different from the GPA planner?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The GPA planner works forward: you enter a target cumulative GPA and it tells you what semester GPA you need next term. This retake calculator works backward on a grade you already have: it swaps one past grade for a new one and shows the exact new cumulative GPA — including the scenario table for every grade you might earn on the retake." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="brand"><span class="brand-mark">GL</span> GradeLab</div>
+  <p class="tagline">Free grade tools for students</p>
+  <nav class="tools-nav" aria-label="GradeLab tools">
+    <a href="../">Final Exam Calculator</a>
+    <a href="../gpa-calculator">GPA Calculator</a>
+    <a href="../grade-average">Grade Average Calculator</a>
+    <a href="../weighted-grade">Weighted Grade Calculator</a>
+    <a href="../test-grade">Test Grade Calculator</a>
+    <a href="../weighted-gpa">Weighted GPA Calculator</a>
+    <a href="../grade-curve">Grade Curve Calculator</a>
+    <a href="../attendance">Attendance Calculator</a>
+    <a href="../letter-grade">Letter Grade Calculator</a>
+    <a href="../gpa-to-percentage">GPA to Percentage Converter</a>
+    <a href="../gpa-planner">GPA Planner Calculator</a>
+    <a href="./" aria-current="page">Grade Retake Calculator</a>
+  </nav>
+</header>
+
+<main>
+  <h1>Grade Retake Calculator — How Much Will Retaking a Class Raise My GPA?</h1>
+  <p class="intro">You got a grade you are not happy with, and your school lets you retake the course — but is it worth a whole semester of work? Enter your current cumulative GPA, the credits you have earned, the course, and the old and new grades. GradeLab shows the exact new GPA, the change, and what every other grade on the retake would do. Everything runs in your browser; nothing is uploaded or tracked.</p>
+
+  <section aria-label="Grade retake calculator">
+    <div class="t-grid">
+      <div class="field">
+        <label for="rt-current">Current cumulative GPA (0–4.0)</label>
+        <input id="rt-current" type="number" min="0" max="4" step="any" value="3.00" inputmode="decimal">
+      </div>
+      <div class="field">
+        <label for="rt-earned">Credits already earned</label>
+        <input id="rt-earned" type="number" min="1" step="any" value="30" inputmode="decimal">
+      </div>
+      <div class="field">
+        <label for="rt-credits">Course credits (the class you retake)</label>
+        <input id="rt-credits" type="number" min="0.5" step="any" value="3" inputmode="decimal">
+      </div>
+      <div class="field">
+        <label for="rt-scale">Grading scale</label>
+        <select id="rt-scale">
+          <option value="plusminus" selected>Plus/minus (A, A-, B+, …)</option>
+          <option value="straight">Straight (A, B, C, D, F)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="rt-old">Grade you earned (old grade)</label>
+        <select id="rt-old"></select>
+      </div>
+      <div class="field">
+        <label for="rt-new">Grade you expect on the retake</label>
+        <select id="rt-new"></select>
+      </div>
+      <div class="field">
+        <label for="rt-policy">Your school's retake policy</label>
+        <select id="rt-policy">
+          <option value="replace" selected>Replace — old grade is swapped out (most common)</option>
+          <option value="average">Average — both attempts count</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="t-summary">
+      <div class="meta">Your new cumulative GPA after the retake</div>
+      <div class="big" id="rt-newgpa">—</div>
+      <div class="meta" id="rt-verdict">Enter your current GPA (0–4), earned credits, course credits, and the old and new grades.</div>
+      <div class="meta" id="rt-detail"></div>
+      <div class="meta" id="rt-extra"></div>
+    </div>
+    <p class="hint">Worked example: at <strong>3.00</strong> over <strong>30 credits</strong>, retaking a <strong>3-credit C</strong> and earning an <strong>A</strong> lifts you to <strong>3.20</strong> (+0.20). The same retake at <strong>2.80</strong> over <strong>60 credits</strong> — a <strong>4-credit F</strong> to a <strong>B</strong> — lands at <strong>3.00</strong> (+0.20). And retaking a <strong>B</strong> and earning a <strong>C</strong> drops you to <strong>2.90</strong> (−0.10): a retake can hurt.</p>
+  </section>
+
+  <section class="guide" aria-label="What each grade on the retake would do">
+    <h2>What each grade on the retake would do</h2>
+    <p>Your selected grade is highlighted. The table is the honest version of the decision: a retake is only worth it if the grade you can realistically earn lands high enough to matter.</p>
+    <div id="rt-table"></div>
+  </section>
+
+  <section class="guide" aria-label="How the grade retake math works">
+    <h2>How the grade retake math works</h2>
+    <h3>1. Replacement: swap the quality points, keep the credits</h3>
+    <p>Your cumulative GPA is total quality points divided by total credits. Under grade replacement, the old grade's points come out and the new grade's points go in, over the same credit total: new GPA = (current GPA × earned credits − old points × course credits + new points × course credits) ÷ earned credits. At 3.00 over 30 credits, a 3-credit C to an A is (90 − 6 + 12) ÷ 30 = <strong>3.20</strong>, a +0.20 lift.</p>
+    <h3>2. One course is a small slice of the average</h3>
+    <p>The lift shrinks as your transcript grows, because the retaken course is a smaller share of the total. The same 3-credit C to an A is worth +0.20 over 30 credits but only +0.07 over 90 credits ((270 − 6 + 12) ÷ 90 = 3.07). Even a dramatic rescue — a 4-credit F to a B at 2.80 over 60 credits — is only +0.20, landing at 3.00. Retaking pays off most early in your degree, in high-credit courses, with the biggest grade jump.</p>
+    <h3>3. A retake can lower your GPA</h3>
+    <p>Replacement cuts both ways: a worse second grade replaces the old one outright. Retaking a 3-credit B and earning a C at 3.00 over 30 credits gives (90 − 9 + 6) ÷ 30 = <strong>2.90</strong>, a −0.10 drop — you spent a semester to go backward. Only retake a course you are confident you can beat, and check the scenario table above for the grade you would actually earn, not the grade you hope for.</p>
+    <h3>4. Replace vs. average — the policy is worth more than the grade</h3>
+    <p>Some schools do not replace the grade at all: both attempts count, so the new points are added on top and the credit total grows. The same 3-credit C to an A at 3.00 over 30 credits is worth +0.20 under replacement but only +0.09 under averaging ((90 + 12) ÷ 33 = 3.09). The policy switch above shows both numbers — check your school's catalog before you decide, because the policy changes the answer more than one letter grade does.</p>
+    <h3>What this calculator cannot do</h3>
+    <p>It cannot know your school's retake rules. Some schools cap the retake grade (often at a C), some only allow retaking D or F grades, some count both attempts but only the higher one toward the major, and some keep the old grade on the transcript even when it no longer counts toward the GPA. Weighted courses (honors/AP) use different point values — the weighted GPA calculator is the page for those. And a retake can affect financial aid (satisfactory academic progress counts attempted credits), so check with your advisor, not just this calculator.</p>
+  </section>
+
+  <section class="faq" aria-label="Frequently asked questions">
+    <h2>Frequently asked questions</h2>
+    <details open>
+      <summary>How much will retaking a class raise my GPA?</summary>
+      <p>It depends on your current GPA, how many credits you have earned, and how many credits the course is worth. Under grade replacement: <strong>New GPA = (Current GPA × Earned Credits − Old Grade Points × Course Credits + New Grade Points × Course Credits) ÷ Earned Credits</strong>. For example, at 3.00 over 30 credits, retaking a 3-credit C and earning an A gives (90 − 6 + 12) ÷ 30 = <strong>3.20</strong> — a +0.20 lift. Enter your numbers in the calculator above for the exact answer.</p>
+    </details>
+    <details>
+      <summary>Is it worth retaking a C?</summary>
+      <p>It depends on how many credits you already have. The same retake — a 3-credit C to an A — is worth <strong>+0.20</strong> at 3.00 over 30 credits, but only <strong>+0.07</strong> over 90 credits, because each new grade is a smaller slice of a bigger average. Retaking a low grade in a high-credit course early in your degree pays off the most; retaking one course late in a long transcript barely moves the number.</p>
+    </details>
+    <details>
+      <summary>What if my school averages both attempts instead of replacing the grade?</summary>
+      <p>Then the same retake is worth much less. At 3.00 over 30 credits, retaking a 3-credit C and earning an A under averaging gives (90 + 12) ÷ 33 = <strong>3.09</strong> — only +0.09, less than half the +0.20 you get under replacement — because the old grade stays in the average and the credit total grows. Use the policy switch on the calculator to see both numbers, and check your school's catalog before you decide: the policy matters more than the grade.</p>
+    </details>
+    <details>
+      <summary>Can retaking a class lower my GPA?</summary>
+      <p>Yes — under grade replacement, a worse second grade replaces the old one outright. At 3.00 over 30 credits, retaking a 3-credit B and earning a C gives (90 − 9 + 6) ÷ 30 = <strong>2.90</strong>, a −0.10 drop. Only retake a course you are confident you can beat; the calculator shows the outcome for every possible new grade so you can see the downside before you commit.</p>
+    </details>
+    <details>
+      <summary>Does the retaken course add credits to my total?</summary>
+      <p>Under grade replacement, no — you already earned those credits once, so the total stays the same and only the quality points change. Under grade averaging, yes — both attempts count, so the total grows by the course credits. That is why the same retake moves your GPA less under averaging: the improvement is spread over more credits.</p>
+    </details>
+    <details>
+      <summary>How is this different from the GPA planner?</summary>
+      <p>The GPA planner works forward: you enter a target cumulative GPA and it tells you what semester GPA you need next term. This retake calculator works backward on a grade you already have: it swaps one past grade for a new one and shows the exact new cumulative GPA — including the scenario table for every grade you might earn on the retake.</p>
+    </details>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>GradeLab — a free study tool. Math is done locally in your browser; nothing is sent anywhere. <a href="../">Final exam calculator</a> · <a href="../gpa-calculator">GPA calculator</a> · <a href="../grade-average">Grade average calculator</a> · <a href="../weighted-grade">Weighted grade calculator</a> · <a href="../test-grade">Test grade calculator</a> · <a href="../weighted-gpa">Weighted GPA calculator</a> · <a href="../grade-curve">Grade curve calculator</a> · <a href="../attendance">Attendance calculator</a> · <a href="../letter-grade">Letter grade calculator</a> · <a href="../gpa-to-percentage">GPA to percentage converter</a> · <a href="../gpa-planner">GPA planner calculator</a></p>
+</footer>
+
+<script src="../retake.js"></script>
+</body>
+</html>
